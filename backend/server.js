@@ -1,7 +1,7 @@
 const express = require('express');
 const path = require('path');
 const fileReader = require('./FileReader');
-const fileWriter = require('./FileWriter.js');
+
 
 const filePath = path.join(`${__dirname}/pizza.json`);
 
@@ -17,6 +17,9 @@ app.get('/', (req, res) => {
 });
 app.get('/api/pizza', async (req, res) => {
     res.send(JSON.parse(await fileReader(filePath)).pizza);
+});
+app.get('/api/allergens', async (req, res) => {
+    res.send(JSON.parse(await fileReader(filePath)).allergens);
 });
 app.use('/public', express.static(`${__dirname}/../frontend/public`));
 
