@@ -1,4 +1,5 @@
 let id = window.location.href.split('/').reverse()[0];
+
 let packageSchema = {
     pizza: [
         {
@@ -31,16 +32,22 @@ let allergens;
         const data = await response.json();
         console.log(data);
 
-        pizzas = data.pizza;
-        allergens = data.allergens
-       
+        if (str == "allergens") {
+            allergens = data.allergens
+        } else {
+             pizzas = data.pizza;
+        }
         return data;
 }
     
 
-const loadEvent = async () => {
-
-
+const loadEvent = async (_) => {
+    
+    const datapizza = await getData("pizza")
+    const dataAllergens = await getData("allergens")
+    console.log(datapizza)
+    console.log(dataAllergens)
+    
 
 }
 
