@@ -44,9 +44,14 @@ async function getData(str) {
 
 const loadEvent = async () => {
     const menuButton = document.querySelector('.menu-button-container');
+    const navBar = document.querySelector('nav');
+    const menuList = document.querySelector('#menu-list');
+    
     menuButton.addEventListener('click', () => {
         menuButton.classList.toggle('change');
+        menuList.classList.toggle('hide');
     });
+
 
     const datapizza = await getData('pizza');
     const dataAllergens = await getData('allergens');

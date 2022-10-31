@@ -1,10 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Overpass:wght@200&display=swap%27');
 * {
     font-family: Overpass;
+    color: white;
 }
 
 body {
-    background-color: black
+    background-color: #16060D;
+}
+
+.hide {
+    display: none;
 }
 
 

@@ -2,6 +2,8 @@
   .menu-button-container {
     display: inline-block;
     cursor: pointer;
+    flex-grow: 1;
+    
   }
   
   .bar1, .bar2, .bar3 {
@@ -24,3 +26,26 @@
   .change .bar3 {
     transform: translate(0, -11px) rotate(45deg);
   }
+  
+  #menu-list {
+    list-style: none;
+  }
+
+  nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  #shopping-cart {
+    height: 2.5em;
+    width: 1.8em;
+    flex-grow: 1;
+    max-width: 100%;
+}
+
+#title {
+  flex-grow: 6;
+  margin: 0.4em;
+  text-align: center;
+}
