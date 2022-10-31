@@ -1,4 +1,3 @@
-
 let endpoint = window.location.href.split('/').reverse()[0];
 console.log(endpoint);
 let packageSchema = {
@@ -43,12 +42,11 @@ async function getData(str) {
     return data;
 }
 
-
 const loadEvent = async () => {
     const menuButton = document.querySelector('.menu-button-container');
     menuButton.addEventListener('click', () => {
         menuButton.classList.toggle('change');
-
+    });
 
     const datapizza = await getData('pizza');
     const dataAllergens = await getData('allergens');
