@@ -2,7 +2,6 @@ const express = require('express');
 const path = require('path');
 const fileReader = require('./FileReader');
 
-
 const filePath = path.join(`${__dirname}/pizza.json`);
 
 const app = express();

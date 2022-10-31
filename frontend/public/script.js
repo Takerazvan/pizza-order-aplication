@@ -1,4 +1,3 @@
-
 let packageSchema = {
     pizza: [
         {
@@ -45,17 +44,16 @@ const loadEvent = async () => {
     const menuButton = document.querySelector('.menu-button-container');
     const navBar = document.querySelector('nav');
     const menuList = document.querySelector('#menu-list');
-    
+
     menuButton.addEventListener('click', () => {
         menuButton.classList.toggle('change');
         menuList.classList.toggle('hide');
     });
 
     //creare elemente
-    const rootElement = document.getElementById("root");
-    const pizzas = document.createElement("h1");
+    const rootElement = document.getElementById('root');
+    const pizzas = document.createElement('h1');
     rootElement.appendChild(pizzas);
-   
 
     //getData pizzas
     const datapizza = await getData('pizza');
@@ -63,18 +61,18 @@ const loadEvent = async () => {
     console.log(datapizza);
     console.log(dataAllergens);
 
-        //adaugare package schema
+    //adaugare package schema
     packageSchema.pizza = datapizza;
     console.log(packageSchema);
 
     //afisare pizza
-    packageSchema.pizza.forEach((elem) => { 
-         //exemplu test
-        pizzas.insertAdjacentHTML('afterend',
-            elem.name +" "+elem.price+ " " 
+    packageSchema.pizza.forEach((elem) => {
+        //exemplu test
+        pizzas.insertAdjacentHTML(
+            'afterend',
+            elem.name + ' ' + elem.price + ' '
         );
-        
-    })
+    });
 };
 
 window.addEventListener('load', loadEvent);

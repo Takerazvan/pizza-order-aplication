@@ -24,7 +24,7 @@
                 "olive oil"
             ],
             "price": 28,
-            "allergens": [1,2]
+            "allergens": [1, 2]
         },
         {
             "id": 3,
@@ -36,7 +36,7 @@
                 "olive oil"
             ],
             "price": 34,
-            "allergens": [1,2]
+            "allergens": [1, 2]
         },
         {
             "id": 4,
@@ -126,6 +126,5 @@
             "id": 6,
             "name": "fish"
         }
-        
     ]
 }
