@@ -43,7 +43,11 @@ async function getData(str) {
     return data;
 }
 
-const loadEvent = async (_) => {
+
+const loadEvent = async () => {
+    const menuButton = document.querySelector('.menu-button-container');
+    menuButton.addEventListener('click', () => {
+        menuButton.classList.toggle('change');
 
 
     const datapizza = await getData('pizza');
