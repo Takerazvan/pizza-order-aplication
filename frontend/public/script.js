@@ -1,5 +1,4 @@
-let endpoint = window.location.href.split('/').reverse()[0];
-console.log(endpoint);
+
 let packageSchema = {
     pizza: [
         {
@@ -52,14 +51,30 @@ const loadEvent = async () => {
         menuList.classList.toggle('hide');
     });
 
+    //creare elemente
+    const rootElement = document.getElementById("root");
+    const pizzas = document.createElement("h1");
+    rootElement.appendChild(pizzas);
+   
 
+    //getData pizzas
     const datapizza = await getData('pizza');
     const dataAllergens = await getData('allergens');
     console.log(datapizza);
     console.log(dataAllergens);
 
+        //adaugare package schema
     packageSchema.pizza = datapizza;
     console.log(packageSchema);
+
+    //afisare pizza
+    packageSchema.pizza.forEach((elem) => { 
+         //exemplu test
+        pizzas.insertAdjacentHTML('afterend',
+            elem.name +" "+elem.price+ " " 
+        );
+        
+    })
 };
 
 window.addEventListener('load', loadEvent);

@@ -21,6 +21,9 @@ app.get('/api/pizza', async (req, res) => {
 app.get('/api/allergens', async (req, res) => {
     res.send(JSON.parse(await fileReader(filePath)).allergens);
 });
+app.get('/api/pizza/list', async (req, res) => {
+    res.sendFile(path.join(`${__dirname}/../frontend/index.html`));
+});
 app.use('/public', express.static(`${__dirname}/../frontend/public`));
 
 app.listen(port, () => console.log(`http://127.0.0.1:${port}`));
