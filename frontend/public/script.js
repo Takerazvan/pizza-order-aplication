@@ -29,11 +29,20 @@ function pizzaHtmlComponent(item, price, imgsrc) {
     <p>
      ${item}
     </p>
-    <p>
+     <div class="buttons" class="buttonContainer">
+    <button type="button"  class="Addbutton">+</button>
+    <p class="counter">
+      1
+    </p>
+    <button type="button" class="Removebutton">-</button>
+    </div>
+    <p class="prices">
     ${price}
     </p>
     </div>`;
 }
+
+
 
 function allPizzasComponent(pizzas) {
     return `<div class="AllPizzaContainer">
@@ -62,6 +71,8 @@ function displayallergensList(allergensList) {
         });
     });
 }
+
+
 
 const loadEvent = async () => {
     const menuButton = document.querySelector('.menu-button-container');
@@ -125,10 +136,29 @@ const loadEvent = async () => {
 
     //afisare pizza
 
-    //exemplu test
-
-    rootElement.insertAdjacentHTML('afterend', allPizzasComponent(datapizza));
     displayallergensList(dataAllergens);
+
+   
+        //exemplu test
+    rootElement.insertAdjacentHTML('afterend', allPizzasComponent(datapizza));
+    
+        //add pizzasto/Price
+    
+document.querySelectorAll('.Addbutton').forEach((elem,index) =>
+    elem.addEventListener('click', (e) => {
+        
+        e.preventDefault();
+        // e.target.parentElement.parentElement.querySelector('.counter').innerText= counter++
+       e.target.parentElement.parentElement.querySelector('.prices').innerText =
+           String(
+               parseInt(
+                   e.target.parentElement.parentElement.querySelector('.prices')
+                       .innerText
+               )+datapizza[index].price
+           );
+    })
+);
+
 };
 
 window.addEventListener('load', loadEvent);
