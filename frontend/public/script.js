@@ -23,9 +23,28 @@ function reInitPackageSchema() {
     };
 }
 
+
+
+function pizzaHtmlComponent(item,price,imgsrc) {
+    return `<div class="pizzaContainer">
+   <img src="${imgsrc}"/>
+    <p>
+     ${item}
+    </p>
+    <p>
+    ${price}
+    </p>
+    </div>`;
+}
+
+function allPizzasComponent(pizzas) {
+    return `<div class="AllPizzaContainer">
+        ${pizzas.map((elem)=>pizzaHtmlComponent(elem.name,elem.price,elem.image)).join("")}
+    </div>`
+}
+
 let pizzas;
 let allergens;
-
 async function getData(str) {
     const response = await fetch(`http://127.0.0.1:9000/api/${str}`);
 
@@ -41,6 +60,7 @@ async function getData(str) {
 }
 
 const loadEvent = async () => {
+    
     const menuButton = document.querySelector('.menu-button-container');
     const navBar = document.querySelector('nav');
     const menuList = document.querySelector('#menu-list');
@@ -94,13 +114,11 @@ const loadEvent = async () => {
     console.log(packageSchema);
 
     //afisare pizza
-    packageSchema.pizza.forEach((elem) => {
+   
         //exemplu test
-        pizzas.insertAdjacentHTML(
-            'afterend',
-            elem.name + ' ' + elem.price + ' '
-        );
-    });
+        rootElement.insertAdjacentHTML('afterend', allPizzasComponent(datapizza));
+        
+ 
 };
 
 window.addEventListener('load', loadEvent);
