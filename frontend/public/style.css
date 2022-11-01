@@ -8,3 +8,6 @@ body {
     background-color: #16060D;
 }
 
+.hide {
+    display: none;
+}

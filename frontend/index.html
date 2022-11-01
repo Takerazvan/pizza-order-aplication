@@ -8,6 +8,7 @@
         <link rel="stylesheet" href="/public/style.css" />
         <link rel="stylesheet" href="/public/menu-style.css" />
         <link rel="stylesheet" href="/public/pizza-cards-style.css" />
+        <link rel="stylesheet" href="/public/allergens-style.css" />
         <script src="/public/script.js"></script>
     </head>
     <body>
@@ -26,18 +27,28 @@
                 id="shopping-cart"
             />
             <ul id="menu-list" class="hide">
-                <li class="menu-list-item"><a class="menu-link" href="">Welcome</a></li>
-                <li class="menu-list-item"><a class="menu-link" href="">Our Menu</a></li>
-                <li class="menu-list-item"><a class="menu-link" href="">About</a></li>
-                <li class="menu-list-item"><a class="menu-link" href="">Story</a></li>
-                <li class="menu-list-item"><a class="menu-link" href="">Contact</a></li>
+                <li class="menu-list-item">
+                    <a class="menu-link" href="">Welcome</a>
+                </li>
+                <li class="menu-list-item">
+                    <a class="menu-link" href="">Our Menu</a>
+                </li>
+                <li class="menu-list-item">
+                    <a class="menu-link" href="">About</a>
+                </li>
+                <li class="menu-list-item">
+                    <a class="menu-link" href="">Story</a>
+                </li>
+                <li class="menu-list-item">
+                    <a class="menu-link" href="">Contact</a>
+                </li>
             </ul>
         </nav>
         <div class="hide" id="order-list">
             <span>Shopping list is empty</span>
         </div>
-        <div id="root">
-            
-        </div>
+        <div class="allergens-filter-button">Filter By Allergens</div>
+        <div class="hide allergens-container" ></div>
+        <div id="root"></div>
     </body>
 </html>
