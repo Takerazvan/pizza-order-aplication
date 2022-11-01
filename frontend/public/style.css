@@ -20,3 +20,7 @@ body {
     flex-direction: row;
     text-align: center;
 }
+
+.pizzaImages{
+    width: 50%;
+}
