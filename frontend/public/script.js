@@ -27,7 +27,7 @@ function reInitPackageSchema() {
 
 function pizzaHtmlComponent(item,price,imgsrc) {
     return `<div class="pizzaContainer">
-   <img class="pizzaImages" src="${imgsrc}"/>
+   <img src="${imgsrc}" class="pizza-image"/>
     <p>
      ${item}
     </p>
