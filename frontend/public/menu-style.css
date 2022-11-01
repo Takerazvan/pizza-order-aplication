@@ -29,6 +29,7 @@ nav {
     max-width: 266px;
     width: 100%;
     padding: 0;
+    z-index: 1;
 }
 
 .menu-link {
@@ -74,21 +75,22 @@ nav {
     position: absolute;
     right: 0px;
     background-color: #762146;
+    z-index: 1;
 }
 
 /* buttons*/
-.buttons{
+.buttons {
     display: flex;
     justify-content: center;
-    justify-content: space-between
+    justify-content: space-between;
 }
 
-.Addbutton,.Removebutton {
-    
+.Addbutton,
+.Removebutton {
     border-radius: 4px;
     background-color: #762146;
     border: none;
-    color: #FFFFFF;
+    color: #ffffff;
     text-align: center;
     font-size: 28px;
     padding: 20px;
@@ -99,7 +101,7 @@ nav {
 }
 
 .fa-cart-plus {
-    background: #0652DD;
+    background: #0652dd;
     align-items: center;
 }
 
@@ -110,7 +112,7 @@ nav {
     border: none;
     font-size: 1em;
     position: relative;
-    background: #0652DD;
+    background: #0652dd;
     cursor: pointer;
     height: 2em;
     width: 10em;
@@ -125,7 +127,7 @@ nav {
 
 .pretext {
     color: #fff;
-    background: #0652DD;
+    background: #0652dd;
     position: absolute;
     top: 0;
     left: 0;
@@ -159,15 +161,6 @@ i {
 .fa-check {
     background: #be2edd;
 }
-
-
-
-
-
-
-
-
-
 
 @media only screen and (min-width: 1000px) {
     .menu-button-container {

@@ -1,6 +1,7 @@
 .AllPizzaContainer {
     display: grid;
     grid-template-columns: 1fr;
+    justify-items: center;
 }
 
 .pizzaContainer {
@@ -16,14 +17,11 @@
     width: 100%;
 }
 
-
-
 @media only screen and (min-width: 700px) {
     .AllPizzaContainer {
         grid-template-columns: 1fr 1fr;
     }
 }
-
 
 @media only screen and (min-width: 1000px) {
     .AllPizzaContainer {

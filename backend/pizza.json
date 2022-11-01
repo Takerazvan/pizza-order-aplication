@@ -2,7 +2,7 @@
     "pizza": [
         {
             "id": 1,
-            "image":"/public/images/pizza1.png",
+            "image": "/public/images/pizza1.png",
             "name": "Marinara",
             "ingredients": [
                 "San Marzano tomato sauce",
@@ -15,7 +15,7 @@
         },
         {
             "id": 2,
-             "image":"/public/images/pizza2.png",
+            "image": "/public/images/pizza2.png",
             "name": "Margherita",
             "ingredients": [
                 "San Marzano tomato sauce",
@@ -30,7 +30,7 @@
         },
         {
             "id": 3,
-             "image":"/public/images/pizza3.png",
+            "image": "/public/images/pizza3.png",
             "name": "Pepperoni ",
             "ingredients": [
                 "San Marzano tomato sauce",

@@ -53,12 +53,10 @@ function pizzaHtmlComponent(item, price, imgsrc) {
     </div>`;
 }
 
-
-
 function allPizzasComponent(pizzas, selectedAlergens) {
     return `<div class="AllPizzaContainer">
         ${pizzas
-            .filter(element => {
+            .filter((element) => {
                 for (allergen of element.allergens) {
                     if (selectedAlergens.includes(allergen)) {
                         return false;
@@ -77,7 +75,12 @@ async function getData(str) {
     return await (await fetch(`http://127.0.0.1:9000/api/${str}`)).json();
 }
 
-function displayallergensList(allergensList, selectedAlergens, rootElement, datapizza) {
+function displayallergensList(
+    allergensList,
+    selectedAlergens,
+    rootElement,
+    datapizza
+) {
     const allergensContainer = document.querySelector('.allergens-container');
     allergensList.forEach((element) => {
         const allergenButton = allergensContainer.appendChild(
@@ -89,17 +92,23 @@ function displayallergensList(allergensList, selectedAlergens, rootElement, data
             if (allergenButton.className.search(/changed/g) === -1) {
                 selectedAlergens.push(element.id);
             } else {
-                selectedAlergens.splice(selectedAlergens.indexOf(element.id), 1);       
+                selectedAlergens.splice(
+                    selectedAlergens.indexOf(element.id),
+                    1
+                );
             }
             allergenButton.classList.toggle('changed');
             console.log(selectedAlergens);
-            document.querySelector('body').removeChild(document.querySelector('.AllPizzaContainer'));
-            rootElement.insertAdjacentHTML('afterend', allPizzasComponent(datapizza, selectedAlergens));
+            document
+                .querySelector('body')
+                .removeChild(document.querySelector('.AllPizzaContainer'));
+            rootElement.insertAdjacentHTML(
+                'afterend',
+                allPizzasComponent(datapizza, selectedAlergens)
+            );
         });
     });
 }
-
-
 
 const loadEvent = async () => {
     const menuButton = document.querySelector('.menu-button-container');
@@ -150,7 +159,6 @@ const loadEvent = async () => {
 
     //creare elemente
     const rootElement = document.getElementById('root');
-  
 
     //getData pizzas
     const datapizza = await getData('pizza');
@@ -164,32 +172,38 @@ const loadEvent = async () => {
 
     //afisare pizza
 
-    displayallergensList(dataAllergens, selectedAlergens, rootElement, datapizza);
+    displayallergensList(
+        dataAllergens,
+        selectedAlergens,
+        rootElement,
+        datapizza
+    );
 
-   
-       
-    rootElement.insertAdjacentHTML('afterend', allPizzasComponent(datapizza, selectedAlergens));
-    
+    rootElement.insertAdjacentHTML(
+        'afterend',
+        allPizzasComponent(datapizza, selectedAlergens)
+    );
+
     //add pizzasto/Price/pizza counter
     let counter = 0;
 
     //increase
     document.querySelectorAll('.Addbutton').forEach((elem, index) =>
         elem.addEventListener('click', (e) => {
-        
             e.preventDefault();
-    
+
+            e.target.parentElement.parentElement.querySelector('.counter')
+                .innerText++;
+
             e.target.parentElement.parentElement.querySelector(
-                '.counter'
-            ).innerText++
-        
-            e.target.parentElement.parentElement.querySelector('.prices').innerText =
-                String(
-                    parseInt(
-                        e.target.parentElement.parentElement.querySelector('.prices')
-                            .innerText
-                    ) + datapizza[index].price
-                );
+                '.prices'
+            ).innerText = String(
+                parseInt(
+                    e.target.parentElement.parentElement.querySelector(
+                        '.prices'
+                    ).innerText
+                ) + datapizza[index].price
+            );
         })
     );
 
@@ -206,7 +220,7 @@ const loadEvent = async () => {
             } else {
                 e.target.parentElement.parentElement.querySelector(
                     '.counter'
-                ).innerText = 1
+                ).innerText = 1;
             }
 
             if (
@@ -226,14 +240,12 @@ const loadEvent = async () => {
                 e.target.parentElement.parentElement.querySelector(
                     '.prices'
                 ).innerText = datapizza[index].price;
-
             }
-            
         })
     );
 
     //add to cart button//de lucrat
-  
+
     const button = document.querySelectorAll('.addtocart');
     const done = document.querySelector('.done');
     console.log(button);
@@ -250,7 +262,6 @@ const loadEvent = async () => {
             }
         })
     );
-
 };
 
 window.addEventListener('load', loadEvent);
