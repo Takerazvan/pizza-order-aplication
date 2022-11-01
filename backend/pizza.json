@@ -2,6 +2,7 @@
     "pizza": [
         {
             "id": 1,
+            "image":"/public/images/pizza1.png",
             "name": "Marinara",
             "ingredients": [
                 "San Marzano tomato sauce",
@@ -14,6 +15,7 @@
         },
         {
             "id": 2,
+             "image":"/public/images/pizza2.png",
             "name": "Margherita",
             "ingredients": [
                 "San Marzano tomato sauce",
@@ -28,6 +30,7 @@
         },
         {
             "id": 3,
+             "image":"/public/images/pizza3.png",
             "name": "Pepperoni ",
             "ingredients": [
                 "San Marzano tomato sauce",
@@ -40,6 +43,7 @@
         },
         {
             "id": 4,
+            "image": "/public/images/pizza4.png",
             "name": "Quattro Formaggi",
             "ingredients": [
                 "San Marzano tomato sauce",
@@ -57,6 +61,7 @@
         },
         {
             "id": 5,
+            "image": "/public/images/pizza5.png",
             "name": "Quattro Stagionni",
             "ingredients": [
                 "San Marzano tomato sauce",
@@ -73,6 +78,7 @@
         },
         {
             "id": 6,
+            "image": "/public/images/pizza6.png",
             "name": "Pescara",
             "ingredients": [
                 "San Marzano tomato sauce",
@@ -82,11 +88,12 @@
                 "oregano",
                 "olive oil"
             ],
-            "price": 3200,
+            "price": 32,
             "allergens": [1, 2, 6]
         },
         {
             "id": 7,
+            "image": "/public/images/pizza3.png",
             "name": "Veggie",
             "ingredients": [
                 "San Marzano tomato sauce",
