@@ -45,11 +45,12 @@ const loadEvent = async () => {
     const navBar = document.querySelector('nav');
     const menuList = document.querySelector('#menu-list');
     const shoppingCart = document.querySelector('#shopping-cart');
-    const orderList = document.querySelector('#order-list')
+    const orderList = document.querySelector('#order-list');
 
     menuButton.addEventListener('click', () => {
         menuButton.classList.toggle('change');
         menuList.classList.toggle('hide');
+        orderList.classList.add('hide');
     });
 
     if (window.innerWidth > 1000) {
@@ -71,7 +72,11 @@ const loadEvent = async () => {
 
     shoppingCart.addEventListener('click', () => {
         orderList.classList.toggle('hide');
-    }) 
+        if (window.innerHeight < 1000) {
+            menuList.classList.add('hide');
+            menuButton.classList.remove('change');
+        }
+    });
 
     //creare elemente
     const rootElement = document.getElementById('root');
