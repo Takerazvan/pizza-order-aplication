@@ -44,10 +44,28 @@ const loadEvent = async () => {
     const menuButton = document.querySelector('.menu-button-container');
     const navBar = document.querySelector('nav');
     const menuList = document.querySelector('#menu-list');
+    const shoppingCart = document.querySelector('#shopping-cart');
 
     menuButton.addEventListener('click', () => {
         menuButton.classList.toggle('change');
         menuList.classList.toggle('hide');
+    });
+
+    if (window.innerWidth > 1000) {
+        menuList.classList.remove('hide');
+        navBar.removeChild(shoppingCart);
+        navBar.appendChild(shoppingCart);
+    }
+
+    window.addEventListener('resize', () => {
+        if (window.innerWidth > 1000) {
+            menuList.classList.remove('hide');
+            navBar.removeChild(shoppingCart);
+            navBar.appendChild(shoppingCart);
+        } else {
+            menuButton.classList.remove('change');
+            menuList.classList.add('hide');
+        }
     });
 
     //creare elemente

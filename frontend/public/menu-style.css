@@ -3,6 +3,7 @@ nav {
     flex-wrap: wrap;
     justify-content: space-between;
 }
+
 .menu-button-container {
     display: inline-block;
     cursor: pointer;
@@ -11,7 +12,6 @@ nav {
 #title {
     margin: auto;
     text-align: center;
-  
 }
 #shopping-cart {
     height: 2.5em;
@@ -30,18 +30,18 @@ nav {
     padding: 0;
 }
 
-.menu-link{
-  display: inline-block;
-  text-decoration: none;
-  height: 75px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #762146;
+.menu-link {
+    display: inline-block;
+    text-decoration: none;
+    height: 75px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #762146;
 }
 
 .menu-link:hover {
-  background-color: #D46A97;
+    background-color: #d46a97;
 }
 
 .bar1,
@@ -69,10 +69,48 @@ nav {
     transform: translate(0, -11px) rotate(45deg);
 }
 
-.hide {
-  display: none;
+@media only screen and (min-width: 1000px) {
+    .menu-button-container {
+        display: none;
+    }
+
+    #title {
+        margin: 10px;
+        text-align: center;
+        align-self: left;
+    }
+
+    #menu-list {
+        list-style: none;
+        flex-basis: auto;
+        position: relative;
+        top: 12px;
+        bottom: 0px;
+        margin: 0;
+        max-width: fit-content;
+        width: auto;
+        padding: 0;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    .menu-link {
+        display: inline-block;
+        text-decoration: none;
+        height: auto;
+        display: inline;
+        align-items: center;
+        justify-content: center;
+        background-color: #16060D;
+        padding-left: 40px;
+        padding-right: 40px;
+    }
+    .menu-list-item {
+        display: inline;
+    }
 }
 
-@media only screen and (min-width: 1000px) {
-  
+.hide {
+    display: none;
 }
