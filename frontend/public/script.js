@@ -44,9 +44,17 @@ function pizzaHtmlComponent(item, price, imgsrc) {
 
 
 
-function allPizzasComponent(pizzas) {
+function allPizzasComponent(pizzas, selectedAlergens) {
     return `<div class="AllPizzaContainer">
         ${pizzas
+            .filter(element => {
+                for (allergen of element.allergens) {
+                    if (selectedAlergens.includes(allergen)) {
+                        return false;
+                    }
+                }
+                return true;
+            })
             .map((elem) =>
                 pizzaHtmlComponent(elem.name, elem.price, elem.image)
             )
@@ -58,7 +66,7 @@ async function getData(str) {
     return await (await fetch(`http://127.0.0.1:9000/api/${str}`)).json();
 }
 
-function displayallergensList(allergensList) {
+function displayallergensList(allergensList, selectedAlergens, rootElement, datapizza) {
     const allergensContainer = document.querySelector('.allergens-container');
     allergensList.forEach((element) => {
         const allergenButton = allergensContainer.appendChild(
@@ -67,7 +75,15 @@ function displayallergensList(allergensList) {
         allergenButton.innerText = element.name;
         allergenButton.classList.add('allergens');
         allergenButton.addEventListener('click', () => {
+            if (allergenButton.className.search(/changed/g) === -1) {
+                selectedAlergens.push(element.id);
+            } else {
+                selectedAlergens.splice(selectedAlergens.indexOf(element.id), 1);       
+            }
             allergenButton.classList.toggle('changed');
+            console.log(selectedAlergens);
+            document.querySelector('body').removeChild(document.querySelector('.AllPizzaContainer'));
+            rootElement.insertAdjacentHTML('afterend', allPizzasComponent(datapizza, selectedAlergens));
         });
     });
 }
@@ -82,6 +98,8 @@ const loadEvent = async () => {
     const orderList = document.querySelector('#order-list');
     const allergensContainer = document.querySelector('.allergens-container');
     const allergenButton = document.querySelector('.allergens-filter-button');
+
+    const selectedAlergens = [];
 
     menuButton.addEventListener('click', () => {
         menuButton.classList.toggle('change');
@@ -136,11 +154,11 @@ const loadEvent = async () => {
 
     //afisare pizza
 
-    displayallergensList(dataAllergens);
+    displayallergensList(dataAllergens, selectedAlergens, rootElement, datapizza);
 
    
         //exemplu test
-    rootElement.insertAdjacentHTML('afterend', allPizzasComponent(datapizza));
+    rootElement.insertAdjacentHTML('afterend', allPizzasComponent(datapizza, selectedAlergens));
     
         //add pizzasto/Price
     
