@@ -16,6 +16,7 @@ nav {
 #shopping-cart {
     height: 2.5em;
     width: 3em;
+    cursor: pointer;
 }
 
 #menu-list {
@@ -67,6 +68,12 @@ nav {
 /* Rotate last bar */
 .change .bar3 {
     transform: translate(0, -11px) rotate(45deg);
+}
+
+#order-list {
+    position: absolute;
+    right: 0px;
+    background-color: #762146;
 }
 
 @media only screen and (min-width: 1000px) {

@@ -45,6 +45,7 @@ const loadEvent = async () => {
     const navBar = document.querySelector('nav');
     const menuList = document.querySelector('#menu-list');
     const shoppingCart = document.querySelector('#shopping-cart');
+    const orderList = document.querySelector('#order-list')
 
     menuButton.addEventListener('click', () => {
         menuButton.classList.toggle('change');
@@ -67,6 +68,10 @@ const loadEvent = async () => {
             menuList.classList.add('hide');
         }
     });
+
+    shoppingCart.addEventListener('click', () => {
+        orderList.classList.toggle('hide');
+    }) 
 
     //creare elemente
     const rootElement = document.getElementById('root');
