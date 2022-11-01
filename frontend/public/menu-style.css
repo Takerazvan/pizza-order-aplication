@@ -117,11 +117,3 @@ nav {
         display: inline;
     }
 }
-
-.hide {
-    display: none;
-}
-
-.buttons > button{
-    color: black;
-}

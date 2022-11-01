@@ -23,9 +23,7 @@ function reInitPackageSchema() {
     };
 }
 
-
-
-function pizzaHtmlComponent(item,price,imgsrc) {
+function pizzaHtmlComponent(item, price, imgsrc) {
     return `<div class="pizzaContainer">
    <img src="${imgsrc}" class="pizza-image"/>
     <p>
@@ -48,40 +46,42 @@ function pizzaHtmlComponent(item,price,imgsrc) {
 
 function allPizzasComponent(pizzas) {
     return `<div class="AllPizzaContainer">
-        ${pizzas.map((elem)=>pizzaHtmlComponent(elem.name,elem.price,elem.image)).join("")}
-    </div>`
+        ${pizzas
+            .map((elem) =>
+                pizzaHtmlComponent(elem.name, elem.price, elem.image)
+            )
+            .join('')}
+    </div>`;
 }
 
-
-
-
-let pizzas;
-let allergens;
 async function getData(str) {
-    const response = await fetch(`http://127.0.0.1:9000/api/${str}`);
+    return await (await fetch(`http://127.0.0.1:9000/api/${str}`)).json();
+}
 
-    const data = await response.json();
-    console.log(data);
-
-    if (str == 'allergens') {
-        allergens = data.allergens;
-    } else {
-        pizzas = data.pizza;
-    }
-    return data;
+function displayallergensList(allergensList) {
+    const allergensContainer = document.querySelector('.allergens-container');
+    allergensList.forEach((element) => {
+        const allergenButton = allergensContainer.appendChild(
+            document.createElement('div')
+        );
+        allergenButton.innerText = element.name;
+        allergenButton.classList.add('allergens');
+        allergenButton.addEventListener('click', () => {
+            allergenButton.classList.toggle('changed');
+        });
+    });
 }
 
 
 
 const loadEvent = async () => {
-    
-
-    
     const menuButton = document.querySelector('.menu-button-container');
     const navBar = document.querySelector('nav');
     const menuList = document.querySelector('#menu-list');
     const shoppingCart = document.querySelector('#shopping-cart');
     const orderList = document.querySelector('#order-list');
+    const allergensContainer = document.querySelector('.allergens-container');
+    const allergenButton = document.querySelector('.allergens-filter-button');
 
     menuButton.addEventListener('click', () => {
         menuButton.classList.toggle('change');
@@ -114,6 +114,11 @@ const loadEvent = async () => {
         }
     });
 
+    allergenButton.addEventListener('click', () => {
+        allergenButton.classList.toggle('changed');
+        allergensContainer.classList.toggle('hide');
+    });
+
     //creare elemente
     const rootElement = document.getElementById('root');
     const pizzas = document.createElement('h1');
@@ -130,6 +135,9 @@ const loadEvent = async () => {
     console.log(packageSchema);
 
     //afisare pizza
+
+    displayallergensList(dataAllergens);
+
    
         //exemplu test
     rootElement.insertAdjacentHTML('afterend', allPizzasComponent(datapizza));
@@ -150,6 +158,7 @@ document.querySelectorAll('.Addbutton').forEach((elem,index) =>
            );
     })
 );
+
 };
 
 window.addEventListener('load', loadEvent);
