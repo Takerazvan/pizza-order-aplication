@@ -1,0 +1,30 @@
+.AllPizzaContainer {
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
+.pizzaContainer {
+    width: 350px;
+    margin: 0;
+}
+
+.pizzaContainer > p {
+    text-align: center;
+}
+
+.pizza-image {
+    width: 100%;
+}
+
+@media only screen and (min-width: 700px) {
+    .AllPizzaContainer {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+
+@media only screen and (min-width: 1000px) {
+    .AllPizzaContainer {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}
