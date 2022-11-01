@@ -16,10 +16,7 @@
     width: 100%;
 }
 
-.Removebutton{
-   
-    justify-content: end;
-}
+
 
 @media only screen and (min-width: 700px) {
     .AllPizzaContainer {

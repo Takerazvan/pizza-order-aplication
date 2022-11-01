@@ -29,16 +29,27 @@ function pizzaHtmlComponent(item, price, imgsrc) {
     <p>
      ${item}
     </p>
-     <div class="buttons" class="buttonContainer">
+     <div class="buttons">
     <button type="button"  class="Addbutton">+</button>
     <p class="counter">
       1
     </p>
     <button type="button" class="Removebutton">-</button>
     </div>
+    <p>Price</p>
     <p class="prices">
     ${price}
     </p>
+    <button class="addtocart">
+  <div class="pretext">
+    <i class="fas fa-cart-plus"></i> ADD TO CART
+  </div>
+  
+  <div class="pretext done">
+    <div class="posttext"><i class="fas fa-check"></i> ADDED</div>
+  </div>
+  
+</button>
     </div>`;
 }
 
@@ -139,8 +150,7 @@ const loadEvent = async () => {
 
     //creare elemente
     const rootElement = document.getElementById('root');
-    const pizzas = document.createElement('h1');
-    rootElement.appendChild(pizzas);
+  
 
     //getData pizzas
     const datapizza = await getData('pizza');
@@ -157,25 +167,89 @@ const loadEvent = async () => {
     displayallergensList(dataAllergens, selectedAlergens, rootElement, datapizza);
 
    
-        //exemplu test
+       
     rootElement.insertAdjacentHTML('afterend', allPizzasComponent(datapizza, selectedAlergens));
     
-        //add pizzasto/Price
-    
-document.querySelectorAll('.Addbutton').forEach((elem,index) =>
-    elem.addEventListener('click', (e) => {
+    //add pizzasto/Price/pizza counter
+    let counter = 0;
+
+    //increase
+    document.querySelectorAll('.Addbutton').forEach((elem, index) =>
+        elem.addEventListener('click', (e) => {
         
-        e.preventDefault();
-        // e.target.parentElement.parentElement.querySelector('.counter').innerText= counter++
-       e.target.parentElement.parentElement.querySelector('.prices').innerText =
-           String(
-               parseInt(
-                   e.target.parentElement.parentElement.querySelector('.prices')
-                       .innerText
-               )+datapizza[index].price
-           );
-    })
-);
+            e.preventDefault();
+    
+            e.target.parentElement.parentElement.querySelector(
+                '.counter'
+            ).innerText++
+        
+            e.target.parentElement.parentElement.querySelector('.prices').innerText =
+                String(
+                    parseInt(
+                        e.target.parentElement.parentElement.querySelector('.prices')
+                            .innerText
+                    ) + datapizza[index].price
+                );
+        })
+    );
+
+    //decrease
+    document.querySelectorAll('.Removebutton').forEach((elem, index) =>
+        elem.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (
+                e.target.parentElement.parentElement.querySelector('.counter')
+                    .innerText > 1
+            ) {
+                e.target.parentElement.parentElement.querySelector('.counter')
+                    .innerText--;
+            } else {
+                e.target.parentElement.parentElement.querySelector(
+                    '.counter'
+                ).innerText = 1
+            }
+
+            if (
+                e.target.parentElement.parentElement.querySelector('.prices')
+                    .innerText > datapizza[index].price
+            ) {
+                e.target.parentElement.parentElement.querySelector(
+                    '.prices'
+                ).innerText = String(
+                    parseInt(
+                        e.target.parentElement.parentElement.querySelector(
+                            '.prices'
+                        ).innerText
+                    ) - datapizza[index].price
+                );
+            } else {
+                e.target.parentElement.parentElement.querySelector(
+                    '.prices'
+                ).innerText = datapizza[index].price;
+
+            }
+            
+        })
+    );
+
+    //add to cart button//de lucrat
+  
+    const button = document.querySelectorAll('.addtocart');
+    const done = document.querySelector('.done');
+    console.log(button);
+    let added = false;
+    document.querySelectorAll('.addtocart').forEach((elem) =>
+        elem.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (added) {
+                done.style.transform = 'translate(-110%) skew(-40deg)';
+                added = false;
+            } else {
+                done.style.transform = 'translate(0px)';
+                added = true;
+            }
+        })
+    );
 
 };
 
