@@ -230,13 +230,22 @@ const loadEvent = async () => {
     );
 
     //add to cart button//
+    const order = document.querySelector("#order")
+    order.classList.add("hide");
+        
     document.querySelectorAll('.addtocart').forEach((elem, index) =>
         elem.addEventListener('click', (e) => {
             e.preventDefault();
-
+            
             let total = parseInt(
                 document.querySelector('.total').innerText.split(':')[1]
+
+
             );
+
+            
+                
+            
 
             document.querySelector('.total').innerText =
                 'Total Amount:' +
@@ -247,7 +256,9 @@ const loadEvent = async () => {
                         ).innerText *
                             datapizza[index].price
                 );
-            
+            order.classList.remove("hide");
+            order.classList.add("show");
+           
         })
     );
 };
