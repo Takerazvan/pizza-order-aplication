@@ -10,6 +10,7 @@ function addItemToBasket(orderSchema, orderItems) {
             }
         });
     }
+    orderItems.numberOfItems += orderSchema.amount;
     console.log(orderItems);
 }
 
@@ -27,6 +28,7 @@ function getAllergenNames(allergenIDs, allergens) {
 
 const orderItems = {
     total: 0,
+    numberOfItems: 0,
     list: []
 };
 
@@ -324,6 +326,7 @@ const loadEvent = async () => {
                   );
             console.log(orderSchema);
             addItemToBasket(orderSchema, orderItems);
+            document.querySelector('#number-of-products').innerText = orderItems.numberOfItems;
         })
     );
 };

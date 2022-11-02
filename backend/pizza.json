@@ -31,7 +31,7 @@
         {
             "id": 3,
             "image": "/public/images/pizza3.png",
-            "name": "Pepperoni ",
+            "name": "Pepperoni",
             "ingredients": [
                 "San Marzano tomato sauce",
                 "Salami",
