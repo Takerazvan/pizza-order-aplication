@@ -31,20 +31,23 @@ h3,
     #our-story > div {
         display: flex;
     }
-    
+
     #our-story > div > img {
         flex: 1 1 0;
         width: 0;
     }
-    
+
     h3 {
-        background-color: #16060D;
+        background-color: #16060d;
     }
 
     #our-story > div > div {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
         flex: 1 1 0;
         width: 0;
-        background-color: #16060D;
+        background-color: #16060d;
         font-size: 2em;
     }
 }
