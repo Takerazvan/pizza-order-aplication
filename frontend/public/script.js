@@ -1,4 +1,12 @@
 
+
+let orderSchema = {
+    name: [],
+    amount: 0,
+   total: ''
+  
+};
+
 function pizzaHtmlComponent(item,ingredients ,price, imgsrc) {
     return `<div class="pizzaContainer">
    
@@ -244,9 +252,6 @@ const loadEvent = async () => {
             );
 
             
-                
-            
-
             document.querySelector('.total').innerText =
                 'Total Amount:' +
                 parseInt(
@@ -258,6 +263,14 @@ const loadEvent = async () => {
                 );
             order.classList.remove("hide");
             order.classList.add("show");
+
+            orderSchema.total = parseInt(
+                document.querySelector('.total').innerText.split(':')[1])
+            
+            orderSchema.name =orderSchema.name +" "+ datapizza[index].name;
+            orderSchema.amount +=
+                parseInt(e.target.parentElement.parentElement.querySelector('.counter').innerText);
+            console.log(orderSchema);
            
         })
     );
