@@ -14,6 +14,9 @@ const port = 9000;
 app.get('/', (req, res) => {
     res.sendFile(path.join(`${__dirname}/../frontend/index.html`));
 });
+app.get('/order', (req, res) => {
+    res.sendFile(path.join(`${__dirname}/../frontend/indexForm.html`));
+});
 app.get('/api/pizza', async (req, res) => {
     res.send(JSON.parse(await fileReader(filePath)).pizza);
 });
