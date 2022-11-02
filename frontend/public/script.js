@@ -19,8 +19,8 @@ let orderSchema = {
   
 };
 
-function pizzaHtmlComponent(item,ingredients ,price, imgsrc) {
-=======
+
+
 function pizzaHtmlComponent(
     item,
     ingredients,
