@@ -1,3 +1,15 @@
+function getAllergenNames(allergenIDs, allergens) {
+    return allergens
+        .map((element) => {
+            if (allergenIDs.includes(element.id)) {
+                return element.name;
+            } else {
+                return 0;
+            }
+        })
+        .filter((element) => element !== 0);
+}
+
 
 
 let orderSchema = {
@@ -8,6 +20,16 @@ let orderSchema = {
 };
 
 function pizzaHtmlComponent(item,ingredients ,price, imgsrc) {
+=======
+function pizzaHtmlComponent(
+    item,
+    ingredients,
+    price,
+    imgsrc,
+    allergens,
+    allergenData
+) {
+
     return `<div class="pizzaContainer">
    
    <img src="${imgsrc}" class="pizza-image"/>
@@ -17,6 +39,10 @@ function pizzaHtmlComponent(item,ingredients ,price, imgsrc) {
    
     <p>
     ${ingredients}
+    </p>
+
+    <p>
+    Allergens: ${getAllergenNames(allergens, allergenData)}
     </p>
      <div class="buttons">
     <button type="button"  class="Removebutton">-</button>
@@ -45,7 +71,7 @@ function pizzaHtmlComponent(item,ingredients ,price, imgsrc) {
     </div>`;
 }
 
-function allPizzasComponent(pizzas, selectedAlergens) {
+function allPizzasComponent(pizzas, selectedAlergens, allergenData) {
     return `<div class="AllPizzaContainer">
         ${pizzas
             .filter((element) => {
@@ -57,7 +83,14 @@ function allPizzasComponent(pizzas, selectedAlergens) {
                 return true;
             })
             .map((elem) =>
-                pizzaHtmlComponent(elem.name, elem.ingredients,elem.price, elem.image)
+                pizzaHtmlComponent(
+                    elem.name,
+                    elem.ingredients,
+                    elem.price,
+                    elem.image,
+                    elem.allergens,
+                    allergenData
+                )
             )
             .join('')}
     </div>`;
@@ -71,7 +104,8 @@ function displayallergensList(
     allergensList,
     selectedAlergens,
     rootElement,
-    datapizza
+    datapizza,
+    dataAllergens
 ) {
     const allergensContainer = document.querySelector('.allergens-container');
     allergensList.forEach((element) => {
@@ -96,7 +130,7 @@ function displayallergensList(
                 .removeChild(document.querySelector('.AllPizzaContainer'));
             rootElement.insertAdjacentHTML(
                 'afterend',
-                allPizzasComponent(datapizza, selectedAlergens)
+                allPizzasComponent(datapizza, selectedAlergens, dataAllergens)
             );
         });
     });
@@ -163,19 +197,19 @@ const loadEvent = async () => {
     console.log(datapizza);
     console.log(dataAllergens);
 
-
     //afisare pizza
 
     displayallergensList(
         dataAllergens,
         selectedAlergens,
         rootElement,
-        datapizza
+        datapizza,
+        dataAllergens
     );
 
     rootElement.insertAdjacentHTML(
         'afterend',
-        allPizzasComponent(datapizza, selectedAlergens)
+        allPizzasComponent(datapizza, selectedAlergens, dataAllergens)
     );
 
     //add pizzasto/Price/pizza counter
@@ -238,20 +272,18 @@ const loadEvent = async () => {
     );
 
     //add to cart button//
-    const order = document.querySelector("#order")
-    order.classList.add("hide");
-        
+    const order = document.querySelector('#order');
+    order.classList.add('hide');
+
     document.querySelectorAll('.addtocart').forEach((elem, index) =>
         elem.addEventListener('click', (e) => {
             e.preventDefault();
-            
+
             let total = parseInt(
                 document.querySelector('.total').innerText.split(':')[1]
-
-
             );
 
-            
+
             document.querySelector('.total').innerText =
                 'Total Amount:' +
                 parseInt(
@@ -261,6 +293,7 @@ const loadEvent = async () => {
                         ).innerText *
                             datapizza[index].price
                 );
+
             order.classList.remove("hide");
             order.classList.add("show");
 
@@ -272,6 +305,7 @@ const loadEvent = async () => {
                 parseInt(e.target.parentElement.parentElement.querySelector('.counter').innerText);
             console.log(orderSchema);
            
+
         })
     );
 };
