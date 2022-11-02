@@ -1,37 +1,17 @@
-let packageSchema = {
-    pizza: [
-        {
-            id: '',
-            name: '',
-            ingredients: [],
-            price: '',
-            allergens: []
-        }
-    ]
-};
-function reInitPackageSchema() {
-    packageSchema = {
-        pizza: [
-            {
-                id: '',
-                name: '',
-                ingredients: [],
-                price: '',
-                allergens: []
-            }
-        ]
-    };
-}
 
-function pizzaHtmlComponent(item, price, imgsrc) {
+function pizzaHtmlComponent(item,ingredients ,price, imgsrc) {
     return `<div class="pizzaContainer">
    
    <img src="${imgsrc}" class="pizza-image"/>
     <p>
      ${item}
     </p>
+   
+    <p>
+    ${ingredients}
+    </p>
      <div class="buttons">
-    <button type="button"  class="Addbutton">+</button>
+    <button type="button"  class="Removebutton">-</button>
     <div class="addElements">
     <p class="counter">
       1
@@ -47,7 +27,7 @@ function pizzaHtmlComponent(item, price, imgsrc) {
   
 </button>
 </div>
-    <button type="button" class="Removebutton">-</button>
+    <button type="button" class="Addbutton">+</button>
     </div>
     <p>Price</p>
     <p class="prices">
@@ -69,7 +49,7 @@ function allPizzasComponent(pizzas, selectedAlergens) {
                 return true;
             })
             .map((elem) =>
-                pizzaHtmlComponent(elem.name, elem.price, elem.image)
+                pizzaHtmlComponent(elem.name, elem.ingredients,elem.price, elem.image)
             )
             .join('')}
     </div>`;
@@ -175,9 +155,6 @@ const loadEvent = async () => {
     console.log(datapizza);
     console.log(dataAllergens);
 
-    //adaugare package schema
-    packageSchema.pizza = datapizza;
-    console.log(packageSchema);
 
     //afisare pizza
 
@@ -253,13 +230,22 @@ const loadEvent = async () => {
     );
 
     //add to cart button//
+    const order = document.querySelector("#order")
+    order.classList.add("hide");
+        
     document.querySelectorAll('.addtocart').forEach((elem, index) =>
         elem.addEventListener('click', (e) => {
             e.preventDefault();
-
+            
             let total = parseInt(
                 document.querySelector('.total').innerText.split(':')[1]
+
+
             );
+
+            
+                
+            
 
             document.querySelector('.total').innerText =
                 'Total Amount:' +
@@ -270,6 +256,9 @@ const loadEvent = async () => {
                         ).innerText *
                             datapizza[index].price
                 );
+            order.classList.remove("hide");
+            order.classList.add("show");
+           
         })
     );
 };
