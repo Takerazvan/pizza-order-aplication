@@ -11,3 +11,7 @@ body {
 .hide {
     display: none;
 }
+
+html {
+    scroll-behavior: smooth;
+}
