@@ -16,6 +16,35 @@ html {
     scroll-behavior: smooth;
 }
 
-h2 {
+h2,
+h3 {
     text-align: center;
+}
+
+h3,
+#our-story > div > p {
+    background-color: #762146;
+    margin: 1px;
+}
+
+@media only screen and (min-width: 1090px) {
+    #our-story > div {
+        display: flex;
+    }
+    
+    #our-story > div > img {
+        flex: 1 1 0;
+        width: 0;
+    }
+    
+    h3 {
+        background-color: #16060D;
+    }
+
+    #our-story > div > div {
+        flex: 1 1 0;
+        width: 0;
+        background-color: #16060D;
+        font-size: 2em;
+    }
 }
