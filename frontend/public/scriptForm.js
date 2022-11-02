@@ -1,6 +1,4 @@
-
-
-function addTocart(img, amount,total) {
+function addTocart(img, amount, total) {
     return `<div class="cartItems">
     <img src="${img}" class="pizzaOrder"/>
     
@@ -12,32 +10,13 @@ function addTocart(img, amount,total) {
     </p>
     
     </div>`;
-
 }
-
 
 function cartItems(pizzas) {
     return `<div class="AllPizzaContainer">
         ${pizzas
-           
-            .map((elem) =>
-                addTocart(
-                    elem.name,
-                    elem.price,
-                    elem.image
-                )
-            )
+
+            .map((elem) => addTocart(elem.name, elem.price, elem.image))
             .join('')}
     </div>`;
 }
-
-
-
-
-
-
-
-
-
-
-

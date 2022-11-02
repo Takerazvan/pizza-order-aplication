@@ -1,3 +1,18 @@
+function addItemToBasket(orderSchema, orderItems) {
+    if (
+        orderItems.list.filter((e) => e.name === orderSchema.name).length === 0
+    ) {
+        orderItems.list.push(orderSchema);
+    } else {
+        orderItems.list.forEach((e, i, array) => {
+            if (e.name === orderSchema.name) {
+                array[i].amount += orderSchema.amount;
+            }
+        });
+    }
+    console.log(orderItems);
+}
+
 function getAllergenNames(allergenIDs, allergens) {
     return allergens
         .map((element) => {
@@ -10,16 +25,10 @@ function getAllergenNames(allergenIDs, allergens) {
         .filter((element) => element !== 0);
 }
 
-
-
-let orderSchema = {
-    name: [],
-    amount: 0,
-   total: ''
-  
+const orderItems = {
+    total: 0,
+    list: []
 };
-
-
 
 function pizzaHtmlComponent(
     item,
@@ -29,7 +38,6 @@ function pizzaHtmlComponent(
     allergens,
     allergenData
 ) {
-
     return `<div class="pizzaContainer">
    
    <img src="${imgsrc}" class="pizza-image"/>
@@ -283,7 +291,6 @@ const loadEvent = async () => {
                 document.querySelector('.total').innerText.split(':')[1]
             );
 
-
             document.querySelector('.total').innerText =
                 'Total Amount:' +
                 parseInt(
@@ -294,18 +301,29 @@ const loadEvent = async () => {
                             datapizza[index].price
                 );
 
-            order.classList.remove("hide");
-            order.classList.add("show");
+            order.classList.remove('hide');
+            order.classList.add('show');
 
-            orderSchema.total = parseInt(
-                document.querySelector('.total').innerText.split(':')[1])
-            
-            orderSchema.name =orderSchema.name +" "+ datapizza[index].name;
-            orderSchema.amount +=
-                parseInt(e.target.parentElement.parentElement.querySelector('.counter').innerText);
+            const orderSchema = {};
+            orderItems.total = parseInt(
+                document.querySelector('.total').innerText.split(':')[1]
+            );
+
+            orderSchema.name = datapizza[index].name;
+            orderSchema.amount = orderSchema.amount
+                ? orderSchema.amount +
+                  parseInt(
+                      e.target.parentElement.parentElement.querySelector(
+                          '.counter'
+                      ).innerText
+                  )
+                : parseInt(
+                      e.target.parentElement.parentElement.querySelector(
+                          '.counter'
+                      ).innerText
+                  );
             console.log(orderSchema);
-           
-
+            addItemToBasket(orderSchema, orderItems);
         })
     );
 };

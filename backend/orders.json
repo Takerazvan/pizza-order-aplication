@@ -1,23 +1,23 @@
-{ "orders":[ {
-  "id": "",
-  "pizzas": [
-    {"id": "", "amount": ""}
-  ],
-  "date": {
-    "year": "",
-   "month": "",
-   "day": "",
-   "hour": "",
-   "minute": ""
-  },
-  "customer": {
-    "name": "",
-    "email": "",
-    "address": {
-      "city": "",
-      "street": ""
-    }
-  }
-} 
-]
+{
+    "orders": [
+        {
+            "id": "",
+            "pizzas": [{ "id": "", "amount": "" }],
+            "date": {
+                "year": "",
+                "month": "",
+                "day": "",
+                "hour": "",
+                "minute": ""
+            },
+            "customer": {
+                "name": "",
+                "email": "",
+                "address": {
+                    "city": "",
+                    "street": ""
+                }
+            }
+        }
+    ]
 }
