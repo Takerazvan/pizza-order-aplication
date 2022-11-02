@@ -12,8 +12,8 @@ body {
     display: none;
 }
 
-.show{
-    display: ""
+.show {
+    display: '';
 }
 
 html {
@@ -29,6 +29,15 @@ h3,
 #our-story > div > p {
     background-color: #762146;
     margin: 1px;
+}
+
+#number-of-products {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    background-color: #d46a97;
+    border-radius: 3px;
+    padding: 2px;
 }
 
 @media only screen and (min-width: 1090px) {

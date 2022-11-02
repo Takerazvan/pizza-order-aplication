@@ -100,13 +100,11 @@ nav {
     margin: 5px;
 }
 
-
-
 .fa-cart-plus {
     background: #762146;
     align-items: center;
 }
-.addElements{
+.addElements {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -133,7 +131,7 @@ nav {
 
 .pretext {
     color: #fff;
-    background:#762146;
+    background: #762146;
     position: absolute;
     top: 0;
     left: 0;
