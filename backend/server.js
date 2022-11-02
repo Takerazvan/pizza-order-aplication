@@ -3,6 +3,7 @@ const path = require('path');
 const fileReader = require('./FileReader');
 
 const filePath = path.join(`${__dirname}/pizza.json`);
+const filePathOrders = path.join(`${__dirname}/orders.json`);
 
 const app = express();
 
@@ -25,6 +26,9 @@ app.get('/api/allergens', async (req, res) => {
 });
 app.get('/pizza/list', async (req, res) => {
     res.sendFile(path.join(`${__dirname}/../frontend/index.html`));
+});
+app.get('/pizza/orders', async (req, res) => {
+    res.send(JSON.parse(await fileReader(filePathOrders)).orders);
 });
 app.use('/public', express.static(`${__dirname}/../frontend/public`));
 

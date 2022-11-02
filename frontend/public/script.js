@@ -10,6 +10,17 @@ function getAllergenNames(allergenIDs, allergens) {
         .filter((element) => element !== 0);
 }
 
+
+
+let orderSchema = {
+    name: [],
+    amount: 0,
+   total: ''
+  
+};
+
+function pizzaHtmlComponent(item,ingredients ,price, imgsrc) {
+=======
 function pizzaHtmlComponent(
     item,
     ingredients,
@@ -18,6 +29,7 @@ function pizzaHtmlComponent(
     allergens,
     allergenData
 ) {
+
     return `<div class="pizzaContainer">
    
    <img src="${imgsrc}" class="pizza-image"/>
@@ -271,6 +283,7 @@ const loadEvent = async () => {
                 document.querySelector('.total').innerText.split(':')[1]
             );
 
+
             document.querySelector('.total').innerText =
                 'Total Amount:' +
                 parseInt(
@@ -280,8 +293,19 @@ const loadEvent = async () => {
                         ).innerText *
                             datapizza[index].price
                 );
-            order.classList.remove('hide');
-            order.classList.add('show');
+
+            order.classList.remove("hide");
+            order.classList.add("show");
+
+            orderSchema.total = parseInt(
+                document.querySelector('.total').innerText.split(':')[1])
+            
+            orderSchema.name =orderSchema.name +" "+ datapizza[index].name;
+            orderSchema.amount +=
+                parseInt(e.target.parentElement.parentElement.querySelector('.counter').innerText);
+            console.log(orderSchema);
+           
+
         })
     );
 };
