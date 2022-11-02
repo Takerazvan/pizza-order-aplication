@@ -131,6 +131,11 @@ const loadEvent = async () => {
         orderList.classList.add('hide');
     });
 
+    menuList.addEventListener('click', () => {
+        menuList.classList.add('hide');
+        menuButton.classList.toggle('change');
+    });
+
     if (window.innerWidth > 1000) {
         menuList.classList.remove('hide');
         navBar.removeChild(shoppingCart);
@@ -189,7 +194,6 @@ const loadEvent = async () => {
     );
 
     //add pizzasto/Price/pizza counter
-    
 
     //increase
     document.querySelectorAll('.Addbutton').forEach((elem, index) =>
@@ -248,29 +252,24 @@ const loadEvent = async () => {
         })
     );
 
-   
-
-    
-   
-         //add to cart button//
-    document.querySelectorAll('.addtocart').forEach((elem,index) =>
+    //add to cart button//
+    document.querySelectorAll('.addtocart').forEach((elem, index) =>
         elem.addEventListener('click', (e) => {
             e.preventDefault();
-            
-            let total = parseInt(document
-                .querySelector('.total')
-                .innerText.split(':')[1]);
-            
-           
-            
-      document.querySelector('.total').innerText =
-          'Total Amount:' +
-          parseInt( total+
-             
-                  e.target.parentElement.parentElement.querySelector('.counter')
-                      .innerText * datapizza[index].price
-          );
 
+            let total = parseInt(
+                document.querySelector('.total').innerText.split(':')[1]
+            );
+
+            document.querySelector('.total').innerText =
+                'Total Amount:' +
+                parseInt(
+                    total +
+                        e.target.parentElement.parentElement.querySelector(
+                            '.counter'
+                        ).innerText *
+                            datapizza[index].price
+                );
         })
     );
 };

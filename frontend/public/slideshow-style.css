@@ -1,13 +1,20 @@
 .slideshow-container,
+#about,
+#about *,
 .slideshow-container * {
     box-sizing: border-box;
 }
 
 /* Slideshow container */
-.slideshow-container {
+.slideshow-container,
+#about {
     max-width: 1000px;
     position: relative;
     margin: auto;
+}
+
+.about {
+    max-width: 100%;
 }
 
 /* Hide the images by default */
@@ -90,7 +97,7 @@
 @media (hover: hover) and (pointer: fine) {
     .prev:hover,
     .next:hover {
-        background-color: rgba(0, 0, 0, 0.8);;
+        background-color: rgba(0, 0, 0, 0.8);
     }
 }
 
