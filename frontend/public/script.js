@@ -25,22 +25,18 @@ function reInitPackageSchema() {
 
 function pizzaHtmlComponent(item, price, imgsrc) {
     return `<div class="pizzaContainer">
+   
    <img src="${imgsrc}" class="pizza-image"/>
     <p>
      ${item}
     </p>
      <div class="buttons">
     <button type="button"  class="Addbutton">+</button>
+    <div class="addElements">
     <p class="counter">
       1
     </p>
-    <button type="button" class="Removebutton">-</button>
-    </div>
-    <p>Price</p>
-    <p class="prices">
-    ${price}
-    </p>
-    <button class="addtocart">
+      <button class="addtocart">
   <div class="pretext">
     <i class="fas fa-cart-plus"></i> ADD TO CART
   </div>
@@ -50,6 +46,14 @@ function pizzaHtmlComponent(item, price, imgsrc) {
   </div>
   
 </button>
+</div>
+    <button type="button" class="Removebutton">-</button>
+    </div>
+    <p>Price</p>
+    <p class="prices">
+    ${price}
+    </p>
+  
     </div>`;
 }
 
@@ -185,7 +189,7 @@ const loadEvent = async () => {
     );
 
     //add pizzasto/Price/pizza counter
-    let counter = 0;
+    
 
     //increase
     document.querySelectorAll('.Addbutton').forEach((elem, index) =>
@@ -244,22 +248,29 @@ const loadEvent = async () => {
         })
     );
 
-    //add to cart button//de lucrat
+   
 
-    const button = document.querySelectorAll('.addtocart');
-    const done = document.querySelector('.done');
-    console.log(button);
-    let added = false;
-    document.querySelectorAll('.addtocart').forEach((elem) =>
+    
+   
+         //add to cart button//
+    document.querySelectorAll('.addtocart').forEach((elem,index) =>
         elem.addEventListener('click', (e) => {
             e.preventDefault();
-            if (added) {
-                done.style.transform = 'translate(-110%) skew(-40deg)';
-                added = false;
-            } else {
-                done.style.transform = 'translate(0px)';
-                added = true;
-            }
+            
+            let total = parseInt(document
+                .querySelector('.total')
+                .innerText.split(':')[1]);
+            
+           
+            
+      document.querySelector('.total').innerText =
+          'Total Amount:' +
+          parseInt( total+
+             
+                  e.target.parentElement.parentElement.querySelector('.counter')
+                      .innerText * datapizza[index].price
+          );
+
         })
     );
 };
