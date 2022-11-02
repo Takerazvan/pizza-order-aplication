@@ -38,6 +38,12 @@ h3,
     background-color: #d46a97;
     border-radius: 3px;
     padding: 2px;
+    cursor: pointer;
+}
+
+#remove-item {
+    display: inline-block;
+    scale: 1.5;
 }
 
 @media only screen and (min-width: 1090px) {

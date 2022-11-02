@@ -1,16 +1,16 @@
-function addItemToBasket(orderSchema, orderItems) {
+function addItemToBasket(pizzas, orderItems) {
     if (
-        orderItems.list.filter((e) => e.name === orderSchema.name).length === 0
+        orderItems.list.filter((e) => e.name === pizzas.name).length === 0
     ) {
-        orderItems.list.push(orderSchema);
+        orderItems.list.push(pizzas);
     } else {
         orderItems.list.forEach((e, i, array) => {
-            if (e.name === orderSchema.name) {
-                array[i].amount += orderSchema.amount;
+            if (e.name === pizzas.name) {
+                array[i].amount += pizzas.amount;
             }
         });
     }
-    orderItems.numberOfItems += orderSchema.amount;
+    orderItems.numberOfItems += pizzas.amount;
     console.log(orderItems);
 }
 
@@ -186,11 +186,11 @@ const loadEvent = async () => {
     });
 
     shoppingCart.addEventListener('click', () => {
-        orderList.classList.toggle('hide');
-        if (window.innerHeight < 1000) {
-            menuList.classList.add('hide');
-            menuButton.classList.remove('change');
-        }
+        showOrderList(orderList, menuList, menuButton);
+    });
+
+    document.querySelector('#number-of-products').addEventListener('click', () => {
+        showOrderList(orderList, menuList, menuButton);
     });
 
     allergenButton.addEventListener('click', () => {
@@ -306,14 +306,14 @@ const loadEvent = async () => {
             order.classList.remove('hide');
             order.classList.add('show');
 
-            const orderSchema = {};
+            const pizzas = {};
             orderItems.total = parseInt(
                 document.querySelector('.total').innerText.split(':')[1]
             );
 
-            orderSchema.name = datapizza[index].name;
-            orderSchema.amount = orderSchema.amount
-                ? orderSchema.amount +
+            pizzas.name = datapizza[index].name;
+            pizzas.amount = pizzas.amount
+                ? pizzas.amount +
                   parseInt(
                       e.target.parentElement.parentElement.querySelector(
                           '.counter'
@@ -324,11 +324,25 @@ const loadEvent = async () => {
                           '.counter'
                       ).innerText
                   );
-            console.log(orderSchema);
-            addItemToBasket(orderSchema, orderItems);
+            console.log(pizzas);
+            addItemToBasket(pizzas, orderItems);
             document.querySelector('#number-of-products').innerText = orderItems.numberOfItems;
         })
     );
 };
 
 window.addEventListener('load', loadEvent);
+
+
+function showOrderList(orderList, menuList, menuButton) {
+    orderList.classList.toggle('hide');
+    if (window.innerHeight < 1000) {
+        menuList.classList.add('hide');
+        menuButton.classList.remove('change');
+    }
+}
+
+function addItemInsideShoppingCart (orderList, orderItems, pizzas) {
+    const item = orderList.appendChild(document.createElement('div'));
+    
+}
