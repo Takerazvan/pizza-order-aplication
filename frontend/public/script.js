@@ -401,6 +401,8 @@ function addItemInsideShoppingCart(orderList, orderItems, pizzas, datapizza) {
     const amount = item.appendChild(document.createElement('span'));
     amount.innerText = pizzas.amount;
     const deleteItemButton = item.appendChild(document.createElement('span'));
+
+    //delete items cart
     deleteItemButton.setAttribute('id', 'remove-item');
     deleteItemButton.innerHTML = '&CircleTimes;';
     deleteItemButton.addEventListener('click', (e) => {
@@ -426,6 +428,18 @@ function addItemInsideShoppingCart(orderList, orderItems, pizzas, datapizza) {
             ) === 0
         ) {
             document.querySelector('#order').classList.add('hide');
+
+                 orderItems = {
+                     total: 0,
+                     numberOfItems: 0,
+                     list: []
+                 };
+                fetch(`http://127.0.0.1:9000/pizza/orders`, {
+                      method: 'DELETE'
+                })
+           
+             
         }
+        
     });
 }
