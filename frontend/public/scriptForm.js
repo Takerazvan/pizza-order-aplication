@@ -155,8 +155,48 @@ const loadEvent = async () => {
     });
 
     ///customer orderdata
-    const date = new Date();
+   
+    const customerData ={}
+    document.querySelector('#Fname').addEventListener("input", (e) => {
+        customerData.firstName = e.target.value;
+
+    })
     
+    document.querySelector('#Lname').addEventListener("input", (e) => {
+         customerData.lastName = e.target.value;
+    })
+
+    document.querySelector('#adress').addEventListener("input", (e) => {
+        customerData.adress = e.target.value;
+    })
+
+    document.querySelector('#email').addEventListener("input", (e) => {
+        customerData.email = e.target.value
+    })
+
+    
+    const submit = document.querySelector('#order')
+
+    submit.addEventListener("click",  async (e) => {
+         const date = new Date();
+        
+        const orderSchema = {}
+        orderSchema.id = 1;
+        orderSchema.pizzas = orderItems;
+        orderSchema.date = date;
+        orderSchema.customer = customerData;
+
+        await fetch(`http://127.0.0.1:9000/pizza/orders/customers`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(orderSchema)
+            
+        })
+
+
+    })
 
 };
 

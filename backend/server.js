@@ -47,8 +47,9 @@ app.post('/pizza/orders', async (req, res) => {
 });
 app.post('/pizza/orders/customers', async (req, res) => {
     const myDataCustomers = await getDataCustomer();
-
-    myDataCustomers.splice(0, 1, { ...req.body });
+    const id = req.body.id;
+    req.body.id = myDataCustomers.orders.length + 1;
+    myDataCustomers.orders.push({ id: req.body.id, ...req.body });
     console.log(req.body);
 
     await fileWriter(filePathCustomerOrders, JSON.stringify(myDataCustomers));
