@@ -32,11 +32,12 @@ app.get('/pizza/orders', async (req, res) => {
     res.send(JSON.parse(await fileReader(filePathOrders)).orderItems);
 });
 
-app.put('/pizza/orders', async (req, res) => {
+app.post('/pizza/orders', async (req, res) => {
     const myData = await getData();
 
-    myData.orderItems.push({ ...req.body });
+    myData.orderItems.splice(0, 1, { ...req.body });
     console.log(req.body);
+   
 
     await fileWriter(filePathOrders, JSON.stringify(myData));
 });

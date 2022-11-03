@@ -360,7 +360,7 @@ const loadEvent = async () => {
     const orderNow = document.getElementById('order');
     orderNow.addEventListener('click', (e) => {
         fetch(`http://127.0.0.1:9000/pizza/orders`, {
-            method: 'PUT',
+            method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
