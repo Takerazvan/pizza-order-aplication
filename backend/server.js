@@ -1,6 +1,8 @@
 const express = require('express');
 const path = require('path');
 const fileReader = require('./FileReader');
+const fileWriter = require('./fileWriter');
+
 
 const filePath = path.join(`${__dirname}/pizza.json`);
 const filePathOrders = path.join(`${__dirname}/orders.json`);
@@ -28,8 +30,24 @@ app.get('/pizza/list', async (req, res) => {
     res.sendFile(path.join(`${__dirname}/../frontend/index.html`));
 });
 app.get('/pizza/orders', async (req, res) => {
-    res.send(JSON.parse(await fileReader(filePathOrders)).orders);
+    res.send(JSON.parse(await fileReader(filePathOrders)).orderItems);
 });
+
+app.put('/pizza/orders', async (req, res) => {
+    const myData = await getData();
+    
+    myData.orderItems.push({...req.body});
+    console.log(req.body);
+   
+
+    await fileWriter(filePathOrders, JSON.stringify(myData));
+});
+
 app.use('/public', express.static(`${__dirname}/../frontend/public`));
+
+async function getData() {
+    const myData = await fileReader(filePathOrders);
+    return JSON.parse(myData.toString());
+}
 
 app.listen(port, () => console.log(`http://127.0.0.1:${port}`));
