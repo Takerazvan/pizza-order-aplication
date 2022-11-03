@@ -5,6 +5,7 @@ const fileWriter = require('./fileWriter');
 
 const filePath = path.join(`${__dirname}/pizza.json`);
 const filePathOrders = path.join(`${__dirname}/orders.json`);
+const filePathCustomerOrders = path.join(`${__dirname}/CustomerOrder.json`);
 
 const app = express();
 
@@ -31,6 +32,10 @@ app.get('/pizza/list', async (req, res) => {
 app.get('/pizza/orders', async (req, res) => {
     res.send(JSON.parse(await fileReader(filePathOrders)).orderItems);
 });
+app.get('/pizza/orders/customers', async (req, res) => {
+    
+    res.send(JSON.parse(await fileReader(filePathCustomerOrders)));
+});
 
 app.post('/pizza/orders', async (req, res) => {
     const myData = await getData();
@@ -39,6 +44,14 @@ app.post('/pizza/orders', async (req, res) => {
     console.log(req.body);
 
     await fileWriter(filePathOrders, JSON.stringify(myData));
+});
+app.post('/pizza/orders/customers', async (req, res) => {
+    const myDataCustomers = await getDataCustomer();
+
+    myDataCustomers.splice(0, 1, { ...req.body });
+    console.log(req.body);
+
+    await fileWriter(filePathCustomerOrders, JSON.stringify(myData));
 });
 
 app.delete('/pizza/orders', async (req, res) => {
@@ -52,6 +65,10 @@ app.use('/public', express.static(`${__dirname}/../frontend/public`));
 async function getData() {
     const myData = await fileReader(filePathOrders);
     return JSON.parse(myData.toString());
+}
+async function getDataCustomer() {
+    const myDataCustomer = await fileReader(filePathCustomerOrders);
+    return JSON.parse(myDataCustomer.toString());
 }
 
 app.listen(port, () => console.log(`http://127.0.0.1:${port}`));

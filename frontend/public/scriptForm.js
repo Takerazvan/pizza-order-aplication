@@ -153,6 +153,11 @@ const loadEvent = async () => {
             }
         });
     });
+
+    ///customer orderdata
+    const date = new Date();
+    
+
 };
 
 window.addEventListener('load', loadEvent);
