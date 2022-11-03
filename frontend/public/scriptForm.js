@@ -179,30 +179,46 @@ const loadEvent = async () => {
     const submit = document.querySelector('#order');
 
     submit.addEventListener('click', async (e) => {
-        const date = new Date();
+        if (
+            document.querySelector('#Fname').value !== '' &&
+            document.querySelector('#Lname').value !== '' &&
+            document.querySelector('#adress').value !== '' &&
+            document.querySelector('#email').value !== ''
+        ) {
+            const date = new Date();
 
-        const orderSchema = {};
-        orderSchema.id = 1;
-        orderSchema.pizzas = orderItems;
-        orderSchema.date = date;
-        orderSchema.customer = customerData;
-        document.querySelector('.AllPizzaContainer').classList.add('hide');
-        document.querySelector('#form').classList.add('hide');
-        document.querySelector('#order-sent').classList.remove('hide');
+            const orderSchema = {};
+            orderSchema.id = 1;
+            orderSchema.pizzas = orderItems;
+            orderSchema.date = date;
+            orderSchema.customer = customerData;
+            document.querySelector('.AllPizzaContainer').classList.add('hide');
+            document.querySelector('#form').classList.add('hide');
+            document.querySelector('#order-sent').classList.remove('hide');
 
-        await fetch(`http://127.0.0.1:9000/pizza/orders/customers`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(orderSchema)
-        });
+            await fetch(`http://127.0.0.1:9000/pizza/orders/customers`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(orderSchema)
+            });
+        } else {
+            alert('Fill all the fields!');
+        }
     });
 
     submit.addEventListener('click', async () => {
-        await fetch(`http://127.0.0.1:9000/pizza/orders`, {
-            method: 'DELETE'
-        });
+        if (
+            document.querySelector('#Fname').value !== '' &&
+            document.querySelector('#Lname').value !== '' &&
+            document.querySelector('#adress').value !== '' &&
+            document.querySelector('#email').value !== ''
+        ) {
+            await fetch(`http://127.0.0.1:9000/pizza/orders`, {
+                method: 'DELETE'
+            });
+        }
     });
 };
 
