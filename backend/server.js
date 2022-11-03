@@ -37,7 +37,6 @@ app.post('/pizza/orders', async (req, res) => {
 
     myData.orderItems.splice(0, 1, { ...req.body });
     console.log(req.body);
-   
 
     await fileWriter(filePathOrders, JSON.stringify(myData));
 });

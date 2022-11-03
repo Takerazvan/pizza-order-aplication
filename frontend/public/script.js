@@ -167,8 +167,10 @@ const loadEvent = async () => {
     ).json();
     if (orderItemsCopy.length > 0) {
         orderItems = orderItemsCopy[0];
+        document.querySelector("#order").classList.remove('hide');
+    }   else {
+        document.querySelector("#order").classList.add('hide');
     }
-    
 
     menuButton.addEventListener('click', () => {
         menuButton.classList.toggle('change');
@@ -301,8 +303,7 @@ const loadEvent = async () => {
     );
 
     //add to cart button//
-    const order = document.querySelector('#order');
-    order.classList.add('hide');
+    
 
     document.querySelectorAll('.addtocart').forEach((elem, index) =>
         elem.addEventListener('click', (e) => {
