@@ -2,7 +2,7 @@ function addTocart(name, amount) {
     return `<div class="cartItems">
      
                         <div class="orders">
-                            <div><i id="remove-item" class="bi bi-x-circle"></i></div>
+                            <div><i class="bi bi-x-circle remove-item"></i></div>
                         <img
                                 width="30%"
                                 src="/public/images/pizza1.png"
@@ -61,9 +61,36 @@ const loadEvent = async () => {
     const total = document.querySelector('#total');
     total.innerText = 'Total: ' + orderItems.total;
 
-    const removeButton = document.querySelector('#remove-item');
-
-    removeButton.addEventListener('click', (e) => {});
+    const removeButton = document.querySelectorAll('.remove-item');
+    const cartContainer = document.querySelector('.cartItems');
+    removeButton.forEach((element) => {
+        element.addEventListener('click', async (elem) => {
+            const datapizza = await (await fetch(`/api/pizza`)).json();
+            const pizza = datapizza.filter(
+                (e) =>
+                    element.parentElement.parentElement.children[2].firstChild
+                        .innerText === e.name
+            )[0];
+            console.log(pizza);
+            for (let i = 0; i < orderItems.list.length; i++) {
+                if (orderItems.list[i].name === pizza.name) {
+                    orderItems.total -= orderItems.list[i].amount * pizza.price;
+                    total.innerText = 'Total: ' + orderItems.total;
+                    orderItems.numberOfItems -= orderItems.list[i].amount;
+                    orderItems.list.splice(i,1);
+                    break;
+                }
+            }
+            cartContainer.removeChild(element.parentElement.parentElement);
+            await fetch(`http://127.0.0.1:9000/pizza/orders`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(orderItems)
+        });
+        });
+    });
 };
 
 window.addEventListener('load', loadEvent);
