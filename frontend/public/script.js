@@ -328,6 +328,7 @@ const loadEvent = async () => {
             addItemToBasket(pizzas, orderItems);
             document.querySelector('#number-of-products').innerText =
                 orderItems.numberOfItems;
+            addItemInsideShoppingCart(orderList, orderItems, pizzas, datapizza);
         })
     );
 };
@@ -342,6 +343,54 @@ function showOrderList(orderList, menuList, menuButton) {
     }
 }
 
-function addItemInsideShoppingCart(orderList, orderItems, pizzas) {
+function addItemInsideShoppingCart(orderList, orderItems, pizzas, datapizza) {
+    for (let i = 0; i < orderItems.list.length; i++) {
+        if (pizzas.name === orderItems.list[i].name) {
+            for (let j = 0; j < orderList.children.length; j++) {
+                if (
+                    pizzas.name ===
+                    orderList.children[j].firstChild.textContent.split(':')[0]
+                ) {
+                    orderList.children[j].children[1].innerText =
+                        +orderList.children[j].children[1].innerText +
+                        pizzas.amount;
+                    return;
+                }
+            }
+        }
+    }
     const item = orderList.appendChild(document.createElement('div'));
+    item.setAttribute('class', 'list-item');
+    const name = item.appendChild(document.createElement('span'));
+    name.innerText = pizzas.name + ': ';
+    const amount = item.appendChild(document.createElement('span'));
+    amount.innerText = pizzas.amount;
+    const deleteItemButton = item.appendChild(document.createElement('span'));
+    deleteItemButton.setAttribute('id', 'remove-item');
+    deleteItemButton.innerHTML = '&CircleTimes;';
+    deleteItemButton.addEventListener('click', (e) => {
+        const pizzaData = datapizza.filter((e) => e.name === pizzas.name);
+        let total = parseInt(
+            document.querySelector('.total').innerText.split(':')[1]
+        );
+        document.querySelector('.total').innerText =
+            'Total Amount:' +
+            (total -
+                pizzaData[0].price *
+                    parseInt(e.target.parentElement.children[1].innerText));
+        document.querySelector('#number-of-products').innerText =
+            +document.querySelector('#number-of-products').innerText -
+            parseInt(e.target.parentElement.children[1].innerText);
+        orderItems.numberOfItems -= parseInt(
+            e.target.parentElement.children[1].innerText
+        );
+        orderList.removeChild(item);
+        if (
+            parseInt(
+                document.querySelector('.total').innerText.split(':')[1]
+            ) === 0
+        ) {
+            document.querySelector('#order').classList.add('hide');
+        }
+    });
 }
