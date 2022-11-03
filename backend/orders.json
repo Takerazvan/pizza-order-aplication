@@ -1,5 +1,11 @@
 {
     "orderItems": [
-
-    ]
+        {
+            "total": 62,
+            "numberOfItems": 2,
+            "list": [
+                { "name": "Pepperoni", "amount": 1 },
+                { "name": "Margherita", "amount": 1 }
+            ]
+        
 }

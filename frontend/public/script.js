@@ -24,19 +24,10 @@ function getAllergenNames(allergenIDs, allergens) {
         .filter((element) => element !== 0);
 }
 
-// const orderItems = {
-//     total: 0,
-//     numberOfItems: 0,
-//     list: []
-// };
-
-const orderItems = {
-    total: 132,
-    numberOfItems: 8,
-    list: [
-        { name: 'Marinara', amount: 2 },
-        { name: 'Margherita', amount: 6 }
-    ]
+let orderItems = {
+    total: 0,
+    numberOfItems: 0,
+    list: []
 };
 
 function createOrderList(orderItems, orderList, datapizza) {
@@ -54,44 +45,44 @@ function pizzaHtmlComponent(
     allergenData
 ) {
     return `<div class="pizzaContainer">
-   
-   <img src="${imgsrc}" class="pizza-image"/>
-    <p>
-     ${item}
-    </p>
-   
-    <p>
-    ${ingredients}
-    </p>
-
-    <p>
-    Allergens: ${getAllergenNames(allergens, allergenData)}
-    </p>
-     <div class="buttons">
-    <button type="button"  class="Removebutton">-</button>
-    <div class="addElements">
-    <p class="counter">
-      1
+        
+        <img src="${imgsrc}" class="pizza-image"/>
+        <p>
+        ${item}
+        </p>
+        
+        <p>
+        ${ingredients}
+        </p>
+        
+        <p>
+        Allergens: ${getAllergenNames(allergens, allergenData)}
+        </p>
+        <div class="buttons">
+        <button type="button"  class="Removebutton">-</button>
+        <div class="addElements">
+        <p class="counter">
+        1
     </p>
       <button class="addtocart">
-  <div class="pretext">
-    <i class="fas fa-cart-plus"></i> ADD TO CART
-  </div>
-  
-  <div class="pretext done">
-    <div class="posttext"><i class="fas fa-check"></i> ADDED</div>
-  </div>
-  
-</button>
-</div>
-    <button type="button" class="Addbutton">+</button>
-    </div>
-    <p>Price</p>
-    <p class="prices">
-    ${price}
-    </p>
-  
-    </div>`;
+      <div class="pretext">
+      <i class="fas fa-cart-plus"></i> ADD TO CART
+      </div>
+      
+      <div class="pretext done">
+      <div class="posttext"><i class="fas fa-check"></i> ADDED</div>
+      </div>
+      
+      </button>
+      </div>
+      <button type="button" class="Addbutton">+</button>
+      </div>
+      <p>Price</p>
+      <p class="prices">
+      ${price}
+      </p>
+      
+      </div>`;
 }
 
 function allPizzasComponent(pizzas, selectedAlergens, allergenData) {
@@ -116,7 +107,7 @@ function allPizzasComponent(pizzas, selectedAlergens, allergenData) {
                 )
             )
             .join('')}
-    </div>`;
+                </div>`;
 }
 
 async function getData(str) {
@@ -171,6 +162,13 @@ const loadEvent = async () => {
     const allergenButton = document.querySelector('.allergens-filter-button');
 
     const selectedAlergens = [];
+    const orderItemsCopy = await (
+        await fetch('http://127.0.0.1:9000/pizza/orders')
+    ).json();
+    if (orderItemsCopy.length > 0) {
+        orderItems = orderItemsCopy[0];
+    }
+    
 
     menuButton.addEventListener('click', () => {
         menuButton.classList.toggle('change');
