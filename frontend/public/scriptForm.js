@@ -85,6 +85,9 @@ const loadEvent = async () => {
             cartContainer.removeChild(
                 element.parentElement.parentElement.parentElement
             );
+            if (orderItems.total === 0) {
+                document.querySelector('#form').classList.add('hide');
+            }
             await fetch(`http://127.0.0.1:9000/pizza/orders`, {
                 method: 'POST',
                 headers: {
@@ -155,36 +158,37 @@ const loadEvent = async () => {
     });
 
     ///customer orderdata
-   
-    const customerData ={}
-    document.querySelector('#Fname').addEventListener("input", (e) => {
+
+    const customerData = {};
+    document.querySelector('#Fname').addEventListener('input', (e) => {
         customerData.firstName = e.target.value;
+    });
 
-    })
-    
-    document.querySelector('#Lname').addEventListener("input", (e) => {
-         customerData.lastName = e.target.value;
-    })
+    document.querySelector('#Lname').addEventListener('input', (e) => {
+        customerData.lastName = e.target.value;
+    });
 
-    document.querySelector('#adress').addEventListener("input", (e) => {
+    document.querySelector('#adress').addEventListener('input', (e) => {
         customerData.adress = e.target.value;
-    })
+    });
 
-    document.querySelector('#email').addEventListener("input", (e) => {
-        customerData.email = e.target.value
-    })
+    document.querySelector('#email').addEventListener('input', (e) => {
+        customerData.email = e.target.value;
+    });
 
-    
-    const submit = document.querySelector('#order')
+    const submit = document.querySelector('#order');
 
-    submit.addEventListener("click",  async (e) => {
-         const date = new Date();
-        
-        const orderSchema = {}
+    submit.addEventListener('click', async (e) => {
+        const date = new Date();
+
+        const orderSchema = {};
         orderSchema.id = 1;
         orderSchema.pizzas = orderItems;
         orderSchema.date = date;
         orderSchema.customer = customerData;
+        document.querySelector('.AllPizzaContainer').classList.add('hide');
+        document.querySelector('#form').classList.add('hide');
+        document.querySelector('#order-sent').classList.remove('hide');
 
         await fetch(`http://127.0.0.1:9000/pizza/orders/customers`, {
             method: 'POST',
@@ -192,12 +196,14 @@ const loadEvent = async () => {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(orderSchema)
-            
-        })
+        });
+    });
 
-
-    })
-
+    submit.addEventListener('click', async () => {
+        await fetch(`http://127.0.0.1:9000/pizza/orders`, {
+            method: 'DELETE'
+        });
+    });
 };
 
 window.addEventListener('load', loadEvent);

@@ -20,35 +20,46 @@
                         <div id="root">
                             <h1>YOUR PIZZA ORDER</h1>
                             <h1 id="total"></h1>
+                            <h1 id="order-sent" class="hide">Order Sent</h1>
                         </div>
 
-                        <form name="input" action='' method="post">
+                        <form id="form" name="input" action="" method="post">
                             First name:
-                            <input id="Fname"
+                            <input
+                                id="Fname"
                                 type="text"
                                 name="firstname"
                                 placeholder="John"
+                                required
                             /><br />
                             Last name:
-                            <input id="Lname"
+                            <input
+                                id="Lname"
                                 type="text"
                                 name="lastname"
                                 placeholder="Smith"
                             /><br />
-                            Address:<input id="adress"
+                            Address:<input
+                                id="adress"
                                 type="email"
                                 name="email"
                                 placeholder="1234 Street City, ST Zip"
                             />
                             <br />
                             Email adress:
-                            <input id="email"
+                            <input
+                                id="email"
                                 type="text"
                                 name="firstname"
                                 placeholder="John"
                             /><br />
 
-                            <input id="order" type="button" value="Submit" href="" />
+                            <input
+                                id="order"
+                                type="button"
+                                value="Submit"
+                                href=""
+                            />
                         </form>
                     </center>
                 </div>

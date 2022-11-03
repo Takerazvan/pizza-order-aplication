@@ -1,3 +1,9 @@
+var perfEntries = performance.getEntriesByType('navigation');
+
+if (perfEntries[0].type === 'back_forward') {
+    location.reload(true);
+}
+
 function addItemToBasket(pizzas, orderItems) {
     if (orderItems.list.filter((e) => e.name === pizzas.name).length === 0) {
         orderItems.list.push(pizzas);

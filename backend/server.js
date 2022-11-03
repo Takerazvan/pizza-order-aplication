@@ -33,7 +33,6 @@ app.get('/pizza/orders', async (req, res) => {
     res.send(JSON.parse(await fileReader(filePathOrders)).orderItems);
 });
 app.get('/pizza/orders/customers', async (req, res) => {
-    
     res.send(JSON.parse(await fileReader(filePathCustomerOrders)));
 });
 
