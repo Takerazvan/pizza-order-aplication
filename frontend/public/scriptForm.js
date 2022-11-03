@@ -1,6 +1,3 @@
-
-
-
 function addTocart(img, amount, total) {
     return `<div class="cartItems">
     <img src="${img}" class="pizzaOrder"/>

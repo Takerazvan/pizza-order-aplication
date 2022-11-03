@@ -3,7 +3,6 @@ const path = require('path');
 const fileReader = require('./FileReader');
 const fileWriter = require('./fileWriter');
 
-
 const filePath = path.join(`${__dirname}/pizza.json`);
 const filePathOrders = path.join(`${__dirname}/orders.json`);
 
@@ -35,10 +34,9 @@ app.get('/pizza/orders', async (req, res) => {
 
 app.put('/pizza/orders', async (req, res) => {
     const myData = await getData();
-    
-    myData.orderItems.push({...req.body});
+
+    myData.orderItems.push({ ...req.body });
     console.log(req.body);
-   
 
     await fileWriter(filePathOrders, JSON.stringify(myData));
 });

@@ -10,9 +10,6 @@ function addItemToBasket(pizzas, orderItems) {
     }
     orderItems.numberOfItems += pizzas.amount;
     console.log(orderItems);
-      
-      
-  
 }
 
 function getAllergenNames(allergenIDs, allergens) {
@@ -27,12 +24,26 @@ function getAllergenNames(allergenIDs, allergens) {
         .filter((element) => element !== 0);
 }
 
+// const orderItems = {
+//     total: 0,
+//     numberOfItems: 0,
+//     list: []
+// };
+
 const orderItems = {
-    total: 0,
-    numberOfItems: 0,
-    list: []
+    total: 132,
+    numberOfItems: 8,
+    list: [
+        { name: 'Marinara', amount: 2 },
+        { name: 'Margherita', amount: 6 }
+    ]
 };
 
+function createOrderList(orderItems, orderList, datapizza) {
+    orderItems.list.forEach((element) => {
+        addItemInsideShoppingCart(orderList, orderItems, element, datapizza);
+    });
+}
 
 function pizzaHtmlComponent(
     item,
@@ -198,7 +209,11 @@ const loadEvent = async () => {
         .addEventListener('click', () => {
             showOrderList(orderList, menuList, menuButton);
         });
+    document.querySelector('#number-of-products').innerText =
+        orderItems.numberOfItems;
 
+    document.querySelector('.total').innerText =
+        'Total Amount:' + orderItems.total;
     allergenButton.addEventListener('click', () => {
         allergenButton.classList.toggle('changed');
         allergensContainer.classList.toggle('hide');
@@ -213,6 +228,7 @@ const loadEvent = async () => {
     const ordersList = await getOrders('orders');
 
     //afisare pizza
+    createOrderList(orderItems, orderList, datapizza);
 
     displayallergensList(
         dataAllergens,
@@ -292,7 +308,7 @@ const loadEvent = async () => {
 
     document.querySelectorAll('.addtocart').forEach((elem, index) =>
         elem.addEventListener('click', (e) => {
-             e.preventDefault();
+            e.preventDefault();
 
             let total = parseInt(
                 document.querySelector('.total').innerText.split(':')[1]
@@ -328,25 +344,21 @@ const loadEvent = async () => {
                       e.target.parentElement.parentElement.querySelector(
                           '.counter'
                       ).innerText
-                );
-          
+                  );
 
             addItemToBasket(pizzas, orderItems);
-            console.clear()
+            console.clear();
             console.log(orderItems);
 
-             
             document.querySelector('#number-of-products').innerText =
                 orderItems.numberOfItems;
 
             addItemInsideShoppingCart(orderList, orderItems, pizzas, datapizza);
-
         })
     );
-    
 
-    const orderNow = document.getElementById("order")
-    orderNow.addEventListener("click", (e) => {
+    const orderNow = document.getElementById('order');
+    orderNow.addEventListener('click', (e) => {
         fetch(`http://127.0.0.1:9000/pizza/orders`, {
             method: 'PUT',
             headers: {
@@ -354,8 +366,7 @@ const loadEvent = async () => {
             },
             body: JSON.stringify(orderItems)
         });
-        
-    })
+    });
 };
 
 window.addEventListener('load', loadEvent);
