@@ -15,7 +15,6 @@ function addItemToBasket(pizzas, orderItems) {
         });
     }
     orderItems.numberOfItems += pizzas.amount;
-    console.log(orderItems);
 }
 
 function getAllergenNames(allergenIDs, allergens) {
@@ -128,7 +127,8 @@ function displayallergensList(
     selectedAlergens,
     rootElement,
     datapizza,
-    dataAllergens
+    dataAllergens,
+    orderList
 ) {
     const allergensContainer = document.querySelector('.allergens-container');
     allergensList.forEach((element) => {
@@ -153,6 +153,122 @@ function displayallergensList(
             rootElement.insertAdjacentHTML(
                 'afterend',
                 allPizzasComponent(datapizza, selectedAlergens, dataAllergens)
+            );
+
+            //increase
+            document.querySelectorAll('.Addbutton').forEach((elem, index) =>
+                elem.addEventListener('click', (e) => {
+                    e.preventDefault();
+
+                    e.target.parentElement.parentElement.querySelector(
+                        '.counter'
+                    ).innerText++;
+
+                    e.target.parentElement.parentElement.querySelector(
+                        '.prices'
+                    ).innerText = String(
+                        parseInt(
+                            e.target.parentElement.parentElement.querySelector(
+                                '.prices'
+                            ).innerText
+                        ) + datapizza[index].price
+                    );
+                })
+            );
+
+            //decrease
+            document.querySelectorAll('.Removebutton').forEach((elem, index) =>
+                elem.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    if (
+                        e.target.parentElement.parentElement.querySelector(
+                            '.counter'
+                        ).innerText > 1
+                    ) {
+                        e.target.parentElement.parentElement.querySelector(
+                            '.counter'
+                        ).innerText--;
+                    } else {
+                        e.target.parentElement.parentElement.querySelector(
+                            '.counter'
+                        ).innerText = 1;
+                    }
+
+                    if (
+                        e.target.parentElement.parentElement.querySelector(
+                            '.prices'
+                        ).innerText > datapizza[index].price
+                    ) {
+                        e.target.parentElement.parentElement.querySelector(
+                            '.prices'
+                        ).innerText = String(
+                            parseInt(
+                                e.target.parentElement.parentElement.querySelector(
+                                    '.prices'
+                                ).innerText
+                            ) - datapizza[index].price
+                        );
+                    } else {
+                        e.target.parentElement.parentElement.querySelector(
+                            '.prices'
+                        ).innerText = datapizza[index].price;
+                    }
+                })
+            );
+
+            document.querySelectorAll('.addtocart').forEach((elem, index) =>
+                elem.addEventListener('click', (e) => {
+                    e.preventDefault();
+
+                    let total = parseInt(
+                        document.querySelector('.total').innerText.split(':')[1]
+                    );
+
+                    document.querySelector('.total').innerText =
+                        'Total Amount:' +
+                        parseInt(
+                            total +
+                                e.target.parentElement.parentElement.querySelector(
+                                    '.counter'
+                                ).innerText *
+                                    datapizza[index].price
+                        );
+
+                    order.classList.remove('hide');
+                    order.classList.add('show');
+
+                    const pizzas = {};
+                    orderItems.total = parseInt(
+                        document.querySelector('.total').innerText.split(':')[1]
+                    );
+
+                    pizzas.name = datapizza[index].name;
+                    pizzas.amount = pizzas.amount
+                        ? pizzas.amount +
+                          parseInt(
+                              e.target.parentElement.parentElement.querySelector(
+                                  '.counter'
+                              ).innerText
+                          )
+                        : parseInt(
+                              e.target.parentElement.parentElement.querySelector(
+                                  '.counter'
+                              ).innerText
+                          );
+
+                    addItemToBasket(pizzas, orderItems);
+                    console.clear();
+
+                    document.querySelector('#number-of-products').innerText =
+                        orderItems.numberOfItems;
+
+                    addItemInsideShoppingCart(
+                        orderList,
+                        orderItems,
+                        pizzas,
+                        datapizza
+                    );
+                })
             );
         });
     });
@@ -250,7 +366,8 @@ const loadEvent = async () => {
         selectedAlergens,
         rootElement,
         datapizza,
-        dataAllergens
+        dataAllergens,
+        orderList
     );
 
     rootElement.insertAdjacentHTML(
@@ -361,7 +478,6 @@ const loadEvent = async () => {
 
             addItemToBasket(pizzas, orderItems);
             console.clear();
-            console.log(orderItems);
 
             document.querySelector('#number-of-products').innerText =
                 orderItems.numberOfItems;

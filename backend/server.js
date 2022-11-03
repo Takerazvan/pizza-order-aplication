@@ -40,7 +40,6 @@ app.post('/pizza/orders', async (req, res) => {
     const myData = await getData();
 
     myData.orderItems.splice(0, 1, { ...req.body });
-    console.log(req.body);
 
     await fileWriter(filePathOrders, JSON.stringify(myData));
 });
@@ -49,7 +48,6 @@ app.post('/pizza/orders/customers', async (req, res) => {
     const id = req.body.id;
     req.body.id = myDataCustomers.orders.length + 1;
     myDataCustomers.orders.push({ id: req.body.id, ...req.body });
-    console.log(req.body);
 
     await fileWriter(filePathCustomerOrders, JSON.stringify(myDataCustomers));
 });

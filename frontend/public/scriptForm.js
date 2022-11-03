@@ -39,7 +39,6 @@ const loadEvent = async () => {
         return await (await fetch(`http://127.0.0.1:9000/pizza/orders`)).json();
     }
     const myOrders = await getData();
-    console.log(myOrders);
     const rootElement = document.getElementById('root');
 
     rootElement.insertAdjacentHTML('beforeend', cartItems(myOrders));
@@ -72,7 +71,6 @@ const loadEvent = async () => {
                     element.parentElement.parentElement.children[2].firstChild
                         .innerText === e.name
             )[0];
-            console.log(pizza);
             for (let i = 0; i < orderItems.list.length; i++) {
                 if (orderItems.list[i].name === pizza.name) {
                     orderItems.total -= orderItems.list[i].amount * pizza.price;
