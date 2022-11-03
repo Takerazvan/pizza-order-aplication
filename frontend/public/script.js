@@ -10,6 +10,9 @@ function addItemToBasket(pizzas, orderItems) {
     }
     orderItems.numberOfItems += pizzas.amount;
     console.log(orderItems);
+      
+      
+  
 }
 
 function getAllergenNames(allergenIDs, allergens) {
@@ -29,6 +32,7 @@ const orderItems = {
     numberOfItems: 0,
     list: []
 };
+
 
 function pizzaHtmlComponent(
     item,
@@ -105,7 +109,10 @@ function allPizzasComponent(pizzas, selectedAlergens, allergenData) {
 }
 
 async function getData(str) {
-    return await (await fetch(`http://127.0.0.1:9000/api/${str}`)).json();
+    return await (await fetch(`/api/${str}`)).json();
+}
+async function getOrders(str) {
+    return await (await fetch(`/pizza/${str}`)).json();
 }
 
 function displayallergensList(
@@ -132,7 +139,6 @@ function displayallergensList(
                 );
             }
             allergenButton.classList.toggle('changed');
-            console.log(selectedAlergens);
             document
                 .querySelector('body')
                 .removeChild(document.querySelector('.AllPizzaContainer'));
@@ -204,8 +210,7 @@ const loadEvent = async () => {
     //getData pizzas
     const datapizza = await getData('pizza');
     const dataAllergens = await getData('allergens');
-    console.log(datapizza);
-    console.log(dataAllergens);
+    const ordersList = await getOrders('orders');
 
     //afisare pizza
 
@@ -287,7 +292,7 @@ const loadEvent = async () => {
 
     document.querySelectorAll('.addtocart').forEach((elem, index) =>
         elem.addEventListener('click', (e) => {
-            e.preventDefault();
+             e.preventDefault();
 
             let total = parseInt(
                 document.querySelector('.total').innerText.split(':')[1]
@@ -323,13 +328,37 @@ const loadEvent = async () => {
                       e.target.parentElement.parentElement.querySelector(
                           '.counter'
                       ).innerText
-                  );
-            console.log(pizzas);
+                );
+          
+
             addItemToBasket(pizzas, orderItems);
+            console.clear()
+            console.log(orderItems);
+
+             
             document.querySelector('#number-of-products').innerText =
                 orderItems.numberOfItems;
+            
+            
+              
+               
+            
+            
         })
     );
+    
+
+    const orderNow = document.getElementById("order")
+    orderNow.addEventListener("click", (e) => {
+        fetch(`http://127.0.0.1:9000/pizza/orders`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(orderItems)
+        });
+        
+    })
 };
 
 window.addEventListener('load', loadEvent);

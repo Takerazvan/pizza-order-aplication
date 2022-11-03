@@ -13,7 +13,6 @@ function showSlides(n) {
     let i;
     const slides = document.getElementsByClassName('mySlides');
     const dots = document.getElementsByClassName('dot');
-    console.log(slides);
     if (n > slides.length) {
         slideIndex = 1;
     }
