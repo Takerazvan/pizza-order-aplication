@@ -1,7 +1,8 @@
 
 
-
 function addTocart(name, amount) {
+
+
     return `<div class="cartItems">
      
                         <div class="orders">
