@@ -16,9 +16,9 @@ function addTocart(name, amount) {
                                
                             </div>
                             <div class="quantity">
-                                <i class="bi bi-patch-minus"></i>
+                                <i class="bi bi-patch-minus decrease-count"></i>
                                 <div>${amount}</div>
-                                <i class="bi bi-patch-plus"></i>
+                                <i class="bi bi-patch-plus increase-count"></i>
                             </div>
                         </div>
     
@@ -62,10 +62,11 @@ const loadEvent = async () => {
     total.innerText = 'Total: ' + orderItems.total;
 
     const removeButton = document.querySelectorAll('.remove-item');
-    const cartContainer = document.querySelector('.cartItems');
+    const cartContainer = document.querySelector('.AllPizzaContainer');
+    const datapizza = await (await fetch(`/api/pizza`)).json();
+
     removeButton.forEach((element) => {
-        element.addEventListener('click', async (elem) => {
-            const datapizza = await (await fetch(`/api/pizza`)).json();
+        element.addEventListener('click', async () => {
             const pizza = datapizza.filter(
                 (e) =>
                     element.parentElement.parentElement.children[2].firstChild
@@ -77,18 +78,79 @@ const loadEvent = async () => {
                     orderItems.total -= orderItems.list[i].amount * pizza.price;
                     total.innerText = 'Total: ' + orderItems.total;
                     orderItems.numberOfItems -= orderItems.list[i].amount;
-                    orderItems.list.splice(i,1);
+                    orderItems.list.splice(i, 1);
                     break;
                 }
             }
-            cartContainer.removeChild(element.parentElement.parentElement);
+            cartContainer.removeChild(
+                element.parentElement.parentElement.parentElement
+            );
             await fetch(`http://127.0.0.1:9000/pizza/orders`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(orderItems)
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(orderItems)
+            });
         });
+    });
+
+    const increaseCount = document.querySelectorAll('.increase-count');
+    increaseCount.forEach((element) => {
+        element.addEventListener('click', async () => {
+            const pizza = datapizza.filter(
+                (e) =>
+                    element.parentElement.parentElement.children[2].firstChild
+                        .innerText === e.name
+            )[0];
+            for (let i = 0; i < orderItems.list.length; i++) {
+                if (orderItems.list[i].name === pizza.name) {
+                    orderItems.total += pizza.price;
+                    orderItems.numberOfItems += 1;
+                    total.innerHTML = 'Total: ' + orderItems.total;
+                    orderItems.list[i].amount += 1;
+                    element.parentElement.children[1].innerText =
+                        orderItems.list[i].amount;
+                    break;
+                }
+            }
+            await fetch(`http://127.0.0.1:9000/pizza/orders`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(orderItems)
+            });
+        });
+    });
+    const decreaseCount = document.querySelectorAll('.decrease-count');
+    decreaseCount.forEach((element) => {
+        element.addEventListener('click', async () => {
+            if (+element.parentElement.children[1].innerText > 1) {
+                const pizza = datapizza.filter(
+                    (e) =>
+                        element.parentElement.parentElement.children[2]
+                            .firstChild.innerText === e.name
+                )[0];
+                for (let i = 0; i < orderItems.list.length; i++) {
+                    if (orderItems.list[i].name === pizza.name) {
+                        orderItems.total -= pizza.price;
+                        orderItems.numberOfItems -= 1;
+                        total.innerHTML = 'Total: ' + orderItems.total;
+                        orderItems.list[i].amount -= 1;
+                        element.parentElement.children[1].innerText =
+                            orderItems.list[i].amount;
+                        break;
+                    }
+                }
+                await fetch(`http://127.0.0.1:9000/pizza/orders`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(orderItems)
+                });
+            }
         });
     });
 };

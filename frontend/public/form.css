@@ -49,6 +49,8 @@ input {
     font-weight: bold;
 }
 
+.increase-count,
+.decrease-count,
 .remove-item {
     cursor: pointer;
 }

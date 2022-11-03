@@ -165,7 +165,7 @@ const loadEvent = async () => {
     const orderItemsCopy = await (
         await fetch('http://127.0.0.1:9000/pizza/orders')
     ).json();
-    if (orderItemsCopy.length > 0) {
+    if (orderItemsCopy[0].list.length > 0) {
         orderItems = orderItemsCopy[0];
         document.querySelector('#order').classList.remove('hide');
     } else {
