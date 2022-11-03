@@ -5,7 +5,7 @@ const fileWriter = require('./fileWriter');
 
 const filePath = path.join(`${__dirname}/pizza.json`);
 const filePathOrders = path.join(`${__dirname}/orders.json`);
-const filePathCustomerOrders = path.join(`${__dirname}/CustomerOrder.json`);
+const filePathCustomerOrders = path.join(`${__dirname}/customerOrder.json`);
 
 const app = express();
 
@@ -51,7 +51,7 @@ app.post('/pizza/orders/customers', async (req, res) => {
     myDataCustomers.splice(0, 1, { ...req.body });
     console.log(req.body);
 
-    await fileWriter(filePathCustomerOrders, JSON.stringify(myData));
+    await fileWriter(filePathCustomerOrders, JSON.stringify(myDataCustomers));
 });
 
 app.delete('/pizza/orders', async (req, res) => {
