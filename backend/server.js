@@ -41,11 +41,11 @@ app.post('/pizza/orders', async (req, res) => {
     await fileWriter(filePathOrders, JSON.stringify(myData));
 });
 
-app.delete("/pizza/orders", async (req, res) => {
+app.delete('/pizza/orders', async (req, res) => {
     const myData = await getData();
     myData.orderItems.splice(0, 1);
     await fileWriter(filePathOrders, JSON.stringify(myData));
-})
+});
 
 app.use('/public', express.static(`${__dirname}/../frontend/public`));
 

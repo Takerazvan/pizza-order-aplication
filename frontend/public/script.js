@@ -355,9 +355,9 @@ const loadEvent = async () => {
         })
     );
 
-    const orderNow = document.getElementById('order');
-    orderNow.addEventListener('click', (e) => {
-        fetch(`http://127.0.0.1:9000/pizza/orders`, {
+    const orderNow = document.querySelector('#order');
+    orderNow.addEventListener('click', async (e) => {
+        await fetch(`http://127.0.0.1:9000/pizza/orders`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -419,11 +419,12 @@ function addItemInsideShoppingCart(orderList, orderItems, pizzas, datapizza) {
             parseInt(e.target.parentElement.children[1].innerText);
         orderItems.numberOfItems -= parseInt(
             e.target.parentElement.children[1].innerText
-        ); 
-        orderItems.total -= pizzaData[0].price *
-        parseInt(e.target.parentElement.children[1].innerText);
+        );
+        orderItems.total -=
+            pizzaData[0].price *
+            parseInt(e.target.parentElement.children[1].innerText);
         orderItems.list.splice(orderItems.list.indexOf(pizzas), 1);
-        
+
         orderList.removeChild(item);
         if (
             parseInt(
