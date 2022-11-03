@@ -167,9 +167,9 @@ const loadEvent = async () => {
     ).json();
     if (orderItemsCopy.length > 0) {
         orderItems = orderItemsCopy[0];
-        document.querySelector("#order").classList.remove('hide');
-    }   else {
-        document.querySelector("#order").classList.add('hide');
+        document.querySelector('#order').classList.remove('hide');
+    } else {
+        document.querySelector('#order').classList.add('hide');
     }
 
     menuButton.addEventListener('click', () => {
@@ -303,7 +303,6 @@ const loadEvent = async () => {
     );
 
     //add to cart button//
-    
 
     document.querySelectorAll('.addtocart').forEach((elem, index) =>
         elem.addEventListener('click', (e) => {
@@ -405,7 +404,7 @@ function addItemInsideShoppingCart(orderList, orderItems, pizzas, datapizza) {
     //delete items cart
     deleteItemButton.setAttribute('id', 'remove-item');
     deleteItemButton.innerHTML = '&CircleTimes;';
-    deleteItemButton.addEventListener('click', (e) => {
+    deleteItemButton.addEventListener('click', async (e) => {
         const pizzaData = datapizza.filter((e) => e.name === pizzas.name);
         let total = parseInt(
             document.querySelector('.total').innerText.split(':')[1]
@@ -420,7 +419,11 @@ function addItemInsideShoppingCart(orderList, orderItems, pizzas, datapizza) {
             parseInt(e.target.parentElement.children[1].innerText);
         orderItems.numberOfItems -= parseInt(
             e.target.parentElement.children[1].innerText
-        );
+        ); 
+        orderItems.total -= pizzaData[0].price *
+        parseInt(e.target.parentElement.children[1].innerText);
+        orderItems.list.splice(orderItems.list.indexOf(pizzas), 1);
+        
         orderList.removeChild(item);
         if (
             parseInt(
@@ -428,18 +431,9 @@ function addItemInsideShoppingCart(orderList, orderItems, pizzas, datapizza) {
             ) === 0
         ) {
             document.querySelector('#order').classList.add('hide');
-
-                 orderItems = {
-                     total: 0,
-                     numberOfItems: 0,
-                     list: []
-                 };
-                fetch(`http://127.0.0.1:9000/pizza/orders`, {
-                      method: 'DELETE'
-                })
-           
-             
+            await fetch(`http://127.0.0.1:9000/pizza/orders`, {
+                method: 'DELETE'
+            });
         }
-        
     });
 }
