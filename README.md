@@ -4,6 +4,8 @@
 
 Welcome to the Pizza Order Prototype project! This is a JavaScript-based application that allows users to create and customize pizza orders.
 
+![Image Description](https://imgur.com/a/Ii2Ok2q)
+
 ## Project Description
 
 The Pizza Order Prototype is a simple web application that enables users to build their own pizza orders by selecting various toppings and specifying their preferences. The application provides an intuitive interface for users to interact with and visualize their pizza creations.
