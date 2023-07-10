@@ -13,9 +13,8 @@ The Pizza Order Prototype is a simple web application that enables users to buil
 ## Features
 
 - User-friendly interface: The application provides a clean and intuitive user interface, making it easy for users to navigate and create their pizza orders.
-- Pizza customization: Users can select from a variety of toppings, sizes, and crust options to personalize their pizzas according to their preferences.
 - Real-time updates: As users make their selections, the application dynamically updates the pizza preview, allowing users to see the changes in real-time.
-- Order summary: After completing the pizza customization, users can review a summary of their order, including the selected toppings, size, crust, and total price.
+- Order summary: After completing the pizza order, users can review a summary of their order.
 - Order submission: Users have the option to submit their pizza orders, which will be processed and confirmed.
 
 ## Installation
